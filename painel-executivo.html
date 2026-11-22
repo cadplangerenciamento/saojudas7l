@@ -119,8 +119,6 @@ main {
   margin-bottom: 22px;
 }
 
-/* GRAFICO DE PAGAMENTOS */
-
 .payment-chart {
   display: flex;
   align-items: center;
@@ -216,13 +214,15 @@ main {
   color: #563938;
 }
 
-/* PREVISAO DE PAGAMENTOS */
-
-.forecast-item {
+.forecast-item,
+.comparison-item,
+.status-item {
   margin-bottom: 25px;
 }
 
-.forecast-label {
+.forecast-label,
+.comparison-label,
+.status-label {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -231,14 +231,23 @@ main {
   font-size: 14px;
 }
 
-.forecast-label span { color: #765454; }
+.forecast-label span,
+.comparison-label span,
+.status-label span {
+  color: #765454;
+}
 
-.forecast-label strong {
+.forecast-label strong,
+.comparison-label strong,
+.status-label strong {
   color: #563938;
   font-size: 15px;
 }
 
-.forecast-bg {
+.forecast-bg,
+.comparison-bg,
+.status-bg,
+.bar-bg {
   height: 17px;
   width: 100%;
   background: #eee7e3;
@@ -246,7 +255,9 @@ main {
   overflow: hidden;
 }
 
-.forecast-fill {
+.forecast-fill,
+.comparison-fill,
+.status-fill {
   height: 100%;
   width: 0%;
   background: #765454;
@@ -254,9 +265,9 @@ main {
   transition: width .5s ease;
 }
 
-.forecast-item:last-child { margin-bottom: 0; }
-
-/* ACOMPANHAMENTO FINANCEIRO */
+.status-fill.pago { background: #2E7D32; }
+.status-fill.vencido { background: #C62828; }
+.status-fill.vencer { background: #C28A36; }
 
 .bar-label {
   display: flex;
@@ -264,14 +275,6 @@ main {
   gap: 10px;
   margin: 22px 0 8px;
   font-size: 14px;
-}
-
-.bar-bg {
-  width: 100%;
-  height: 19px;
-  background: #eee7e3;
-  border-radius: 20px;
-  overflow: hidden;
 }
 
 .bar-fill {
@@ -330,6 +333,8 @@ footer {
   Última atualização: —
 </p>
 
+<!-- 1. GESTAO CONTRATUAL -->
+
 <h2 class="group-title">1. Gestão Contratual</h2>
 
 <div class="cards">
@@ -348,6 +353,8 @@ footer {
     <div class="value" id="saldo_a_faturar">—</div>
   </div>
 </div>
+
+<!-- 2. GESTAO FINANCEIRA -->
 
 <h2 class="group-title">2. Gestão Financeira</h2>
 
@@ -409,6 +416,8 @@ footer {
   </p>
 </div>
 
+<!-- 3. PLANEJAMENTO FINANCEIRO -->
+
 <h2 class="group-title">3. Planejamento Financeiro</h2>
 
 <div class="cards">
@@ -467,6 +476,8 @@ footer {
   </p>
 </div>
 
+<!-- 4. GESTAO ADMINISTRATIVA -->
+
 <h2 class="group-title">4. Gestão Administrativa</h2>
 
 <div class="cards">
@@ -522,10 +533,109 @@ footer {
   </div>
 </div>
 
-<p class="note">
-  Indicadores calculados a partir dos valores contratados,
-  faturados e pagos registrados na planilha.
-</p>
+<!-- 6. GESTAO DE DESEMPENHO -->
+
+<h2 class="group-title">6. Gestão de Desempenho</h2>
+
+<div class="chart-box">
+  <h3>Comparativo Financeiro da Obra</h3>
+
+  <div class="comparison-item">
+    <div class="comparison-label">
+      <span>Valor Contratado</span>
+      <strong id="comparativo_contratado">—</strong>
+    </div>
+    <div class="comparison-bg">
+      <div class="comparison-fill"
+           id="barra_comparativo_contratado"></div>
+    </div>
+  </div>
+
+  <div class="comparison-item">
+    <div class="comparison-label">
+      <span>Valor Faturado</span>
+      <strong id="comparativo_faturado">—</strong>
+    </div>
+    <div class="comparison-bg">
+      <div class="comparison-fill"
+           id="barra_comparativo_faturado"></div>
+    </div>
+  </div>
+
+  <div class="comparison-item">
+    <div class="comparison-label">
+      <span>Valor Pago</span>
+      <strong id="comparativo_pago">—</strong>
+    </div>
+    <div class="comparison-bg">
+      <div class="comparison-fill"
+           id="barra_comparativo_pago"
+           style="background:#2E7D32"></div>
+    </div>
+  </div>
+
+  <p class="note">
+    Comparação entre os valores contratados, faturados
+    e efetivamente pagos.
+  </p>
+</div>
+
+<div class="cards" style="margin-top:22px">
+
+  <div class="card">
+    <div class="label">Compromissos a Vencer</div>
+    <div class="value" id="desempenho_a_vencer">—</div>
+  </div>
+
+  <div class="card">
+    <div class="label">Compromissos Vencidos</div>
+    <div class="value" id="desempenho_vencido">—</div>
+  </div>
+
+  <div class="card">
+    <div class="label">Percentual de Valores Vencidos</div>
+    <div class="value" id="desempenho_inadimplencia">—</div>
+  </div>
+
+  <div class="card">
+    <div class="label">Contratos Cadastrados</div>
+    <div class="value" id="desempenho_contratos">—</div>
+  </div>
+
+</div>
+
+<div class="chart-box">
+  <h3>Composição das Pendências Financeiras</h3>
+
+  <div class="status-item">
+    <div class="status-label">
+      <span>Valores a Vencer</span>
+      <strong id="status_texto_vencer">—</strong>
+    </div>
+    <div class="status-bg">
+      <div class="status-fill vencer"
+           id="status_barra_vencer"></div>
+    </div>
+  </div>
+
+  <div class="status-item">
+    <div class="status-label">
+      <span>Valores Vencidos</span>
+      <strong id="status_texto_vencido">—</strong>
+    </div>
+    <div class="status-bg">
+      <div class="status-fill vencido"
+           id="status_barra_vencido"></div>
+    </div>
+  </div>
+
+  <p class="note">
+    A proporção de vencidos é calculada em relação
+    ao total pendente de pagamento.
+  </p>
+</div>
+
+<!-- ACOMPANHAMENTO FINANCEIRO -->
 
 <div class="chart-box">
   <h3>Acompanhamento Financeiro</h3>
@@ -536,7 +646,8 @@ footer {
   </div>
 
   <div class="bar-bg">
-    <div class="bar-fill" id="barra_percentual_faturado"
+    <div class="bar-fill"
+         id="barra_percentual_faturado"
          style="width:0%"></div>
   </div>
 
@@ -546,7 +657,8 @@ footer {
   </div>
 
   <div class="bar-bg">
-    <div class="bar-fill" id="barra_percentual_pago"
+    <div class="bar-fill"
+         id="barra_percentual_pago"
          style="width:0%"></div>
   </div>
 
@@ -585,6 +697,22 @@ async function carregarDados() {
       style: "currency",
       currency: "BRL"
     });
+
+    const numero = valor =>
+      typeof valor === "number" && Number.isFinite(valor)
+        ? valor
+        : 0;
+
+    const percentual = valor =>
+      valor.toLocaleString("pt-BR", {
+        minimumFractionDigits: 1,
+        maximumFractionDigits: 1
+      }) + "%";
+
+    const formatarPercentual = valor =>
+      typeof valor === "number" && Number.isFinite(valor)
+        ? percentual(valor)
+        : "—";
 
     // DATA DA ATUALIZACAO
 
@@ -648,17 +776,14 @@ async function carregarDados() {
       }
     });
 
+    const contratado = numero(indicadores.total_contratado);
+    const faturado = numero(indicadores.total_faturado);
+    const pago = numero(indicadores.total_pago);
+    const pendente = numero(indicadores.saldo_a_pagar);
+    const aVencer = numero(indicadores.total_a_vencer);
+    const vencido = numero(indicadores.total_vencido);
+
     // 5. INDICADORES GERENCIAIS
-
-    const totalContratado =
-      typeof indicadores.total_contratado === "number"
-        ? indicadores.total_contratado
-        : 0;
-
-    const totalPago =
-      typeof indicadores.total_pago === "number"
-        ? indicadores.total_pago
-        : 0;
 
     const execucaoContratual =
       typeof indicadores.percentual_faturado === "number"
@@ -666,8 +791,8 @@ async function carregarDados() {
         : null;
 
     const execucaoFinanceira =
-      totalContratado > 0
-        ? (totalPago / totalContratado) * 100
+      contratado > 0
+        ? pago / contratado * 100
         : null;
 
     const faturadoPago =
@@ -675,69 +800,51 @@ async function carregarDados() {
         ? indicadores.percentual_pago * 100
         : null;
 
-    const formatarPercentual = valor =>
-      typeof valor === "number" && Number.isFinite(valor)
-        ? valor.toLocaleString("pt-BR", {
-            minimumFractionDigits: 1,
-            maximumFractionDigits: 1
-          }) + "%"
-        : "—";
+    document.getElementById(
+      "indicador_execucao_contratual"
+    ).textContent = formatarPercentual(execucaoContratual);
 
-    document.getElementById("indicador_execucao_contratual").textContent =
-      formatarPercentual(execucaoContratual);
+    document.getElementById(
+      "indicador_execucao_financeira"
+    ).textContent = formatarPercentual(execucaoFinanceira);
 
-    document.getElementById("indicador_execucao_financeira").textContent =
-      formatarPercentual(execucaoFinanceira);
+    document.getElementById(
+      "indicador_saldo_contratual"
+    ).textContent = moeda.format(numero(indicadores.saldo_a_faturar));
 
-    document.getElementById("indicador_saldo_contratual").textContent =
-      typeof indicadores.saldo_a_faturar === "number"
-        ? moeda.format(indicadores.saldo_a_faturar)
-        : "—";
-
-    document.getElementById("indicador_faturado_pago").textContent =
-      formatarPercentual(faturadoPago);
+    document.getElementById(
+      "indicador_faturado_pago"
+    ).textContent = formatarPercentual(faturadoPago);
 
     // GRAFICO DE DISTRIBUICAO
 
-    const valorPago =
-      typeof indicadores.total_pago === "number"
-        ? Math.max(0, indicadores.total_pago)
-        : 0;
+    const totalDistribuicao = pago + pendente;
 
-    const valorPendente =
-      typeof indicadores.saldo_a_pagar === "number"
-        ? Math.max(0, indicadores.saldo_a_pagar)
-        : 0;
-
-    const totalDistribuicao = valorPago + valorPendente;
-
-    const percentual =
+    const percentualPago =
       totalDistribuicao > 0
-        ? valorPago / totalDistribuicao * 100
+        ? pago / totalDistribuicao * 100
         : 0;
 
-    const grafico = document.getElementById("grafico_pagamentos");
+    document.getElementById(
+      "grafico_pagamentos"
+    ).style.setProperty(
+      "--pago-percentual",
+      percentualPago + "%"
+    );
 
-    if (grafico) {
-      grafico.style.setProperty(
-        "--pago-percentual",
-        percentual + "%"
-      );
-    }
+    document.getElementById(
+      "percentual_pagamentos"
+    ).textContent = percentual(percentualPago);
 
-    document.getElementById("percentual_pagamentos").textContent =
-      percentual.toLocaleString("pt-BR", {
-        minimumFractionDigits: 1,
-        maximumFractionDigits: 1
-      }) + "%";
+    document.getElementById(
+      "valor_pago_grafico"
+    ).textContent = moeda.format(pago);
 
-    document.getElementById("valor_pago_grafico").textContent =
-      moeda.format(valorPago);
+    document.getElementById(
+      "valor_pendente_grafico"
+    ).textContent = moeda.format(pendente);
 
-    document.getElementById("valor_pendente_grafico").textContent =
-      moeda.format(valorPendente);
-
-    // GRAFICO DE PREVISAO DE PAGAMENTOS
+    // PREVISAO DE PAGAMENTOS
 
     const previsoes = [
       {
@@ -757,33 +864,24 @@ async function carregarDados() {
       }
     ];
 
-    const valoresPrevisao = previsoes.map(item => {
-      const valor = indicadores[item.campo];
-      return typeof valor === "number" ? Math.max(0, valor) : 0;
-    });
+    const valoresPrevisao = previsoes.map(item =>
+      Math.max(0, numero(indicadores[item.campo]))
+    );
 
     const maiorPrevisao = Math.max(...valoresPrevisao);
 
     previsoes.forEach((item, indice) => {
       const valor = valoresPrevisao[indice];
 
-      const barra = document.getElementById(item.barra);
-      const texto = document.getElementById(item.texto);
+      document.getElementById(item.texto).textContent =
+        typeof indicadores[item.campo] === "number"
+          ? moeda.format(indicadores[item.campo])
+          : "—";
 
-      if (texto) {
-        texto.textContent =
-          typeof indicadores[item.campo] === "number"
-            ? moeda.format(indicadores[item.campo])
-            : "—";
-      }
-
-      if (barra) {
-        const largura = maiorPrevisao > 0
-          ? valor / maiorPrevisao * 100
-          : 0;
-
-        barra.style.width = largura.toFixed(1) + "%";
-      }
+      document.getElementById(item.barra).style.width =
+        maiorPrevisao > 0
+          ? (valor / maiorPrevisao * 100).toFixed(1) + "%"
+          : "0%";
     });
 
     // BARRAS DE ACOMPANHAMENTO FINANCEIRO
@@ -795,6 +893,7 @@ async function carregarDados() {
 
     Object.entries(barras).forEach(([campo, id]) => {
       const barra = document.getElementById(id);
+
       const texto = document.getElementById(
         campo === "percentual_faturado"
           ? "texto_percentual_faturado"
@@ -809,39 +908,107 @@ async function carregarDados() {
           Math.min(100, valor * 100)
         );
 
-        if (barra) {
-          barra.style.width = percentualBarra.toFixed(1) + "%";
-        }
-
-        if (texto) {
-          texto.textContent =
-            percentualBarra.toLocaleString("pt-BR", {
-              minimumFractionDigits: 1,
-              maximumFractionDigits: 1
-            }) + "%";
-        }
+        barra.style.width = percentualBarra.toFixed(1) + "%";
+        texto.textContent = percentual(percentualBarra);
       }
     });
+
+    // 6. COMPARATIVO FINANCEIRO
+
+    const comparativos = [
+      {
+        valor: contratado,
+        texto: "comparativo_contratado",
+        barra: "barra_comparativo_contratado"
+      },
+      {
+        valor: faturado,
+        texto: "comparativo_faturado",
+        barra: "barra_comparativo_faturado"
+      },
+      {
+        valor: pago,
+        texto: "comparativo_pago",
+        barra: "barra_comparativo_pago"
+      }
+    ];
+
+    comparativos.forEach(item => {
+      document.getElementById(item.texto).textContent =
+        moeda.format(item.valor);
+
+      document.getElementById(item.barra).style.width =
+        contratado > 0
+          ? Math.min(100, Math.max(0, item.valor / contratado * 100)) + "%"
+          : "0%";
+    });
+
+    // COMPOSICAO DAS PENDENCIAS
+
+    document.getElementById(
+      "desempenho_a_vencer"
+    ).textContent = moeda.format(aVencer);
+
+    document.getElementById(
+      "desempenho_vencido"
+    ).textContent = moeda.format(vencido);
+
+    document.getElementById(
+      "desempenho_contratos"
+    ).textContent = numero(indicadores.contratos).toLocaleString("pt-BR");
+
+    // Percentual de vencidos sobre o total pendente.
+    // Pressupoe que os valores vencidos integram o saldo pendente.
+
+    const percentualVencido =
+      pendente > 0
+        ? vencido / pendente * 100
+        : null;
+
+    document.getElementById(
+      "desempenho_inadimplencia"
+    ).textContent = formatarPercentual(percentualVencido);
+
+    document.getElementById(
+      "status_texto_vencer"
+    ).textContent = moeda.format(aVencer);
+
+    document.getElementById(
+      "status_texto_vencido"
+    ).textContent = moeda.format(vencido);
+
+    const totalPendencias = aVencer + vencido;
+
+    const proporcaoVencer =
+      totalPendencias > 0
+        ? aVencer / totalPendencias * 100
+        : 0;
+
+    const proporcaoVencido =
+      totalPendencias > 0
+        ? vencido / totalPendencias * 100
+        : 0;
+
+    document.getElementById(
+      "status_barra_vencer"
+    ).style.width = proporcaoVencer + "%";
+
+    document.getElementById(
+      "status_barra_vencido"
+    ).style.width = proporcaoVencido + "%";
 
     // DESTAQUES
 
     const elementoVencido =
       document.getElementById("total_vencido");
 
-    if (elementoVencido &&
-        typeof indicadores.total_vencido === "number") {
-      elementoVencido.style.color =
-        indicadores.total_vencido > 0
-          ? "#C62828"
-          : "#563938";
-    }
+    elementoVencido.style.color =
+      vencido > 0 ? "#C62828" : "#563938";
 
-    const elementoPago = document.getElementById("total_pago");
+    const elementoPago =
+      document.getElementById("total_pago");
 
-    if (elementoPago &&
-        typeof indicadores.total_pago === "number") {
-      elementoPago.style.color = "#2E7D32";
-    }
+    elementoPago.style.color = "#2E7D32";
 
     console.log("Indicadores CADPLAN atualizados:", dados);
 
