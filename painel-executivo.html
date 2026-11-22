@@ -3,14 +3,15 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#563938">
 
   <title>CADPLAN | Painel Executivo</title>
 
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
@@ -43,7 +44,9 @@
       font-size: 19px;
     }
 
-    header small { opacity: 0.85; }
+    header small {
+      opacity: 0.85;
+    }
 
     main {
       max-width: 1000px;
@@ -64,16 +67,16 @@
       font-size: 23px;
       margin-bottom: 8px;
     }
-    .group-title {
-  color: #563938;
-  font-size: 19px;
-  font-weight: 700;
-  margin-top: 30px;
-  margin-bottom: 16px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid #8b5e5a;
-}
 
+    .group-title {
+      color: #563938;
+      font-size: 19px;
+      font-weight: 700;
+      margin-top: 30px;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #8b5e5a;
+    }
 
     .subtitle {
       color: #777;
@@ -118,6 +121,110 @@
     .chart-box h3 {
       color: #563938;
       margin-top: 0;
+      margin-bottom: 22px;
+    }
+
+    /* GRAFICO DE DISTRIBUICAO DOS PAGAMENTOS */
+
+    .payment-chart {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 45px;
+      flex-wrap: wrap;
+      padding: 10px 0;
+    }
+
+    .donut {
+      width: 190px;
+      height: 190px;
+      border-radius: 50%;
+
+      background: conic-gradient(
+        #2E7D32 0 var(--pago-percentual, 0%),
+        #e7dedb var(--pago-percentual, 0%) 100%
+      );
+
+      display: grid;
+      place-items: center;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .donut::before {
+      content: "";
+      position: absolute;
+      width: 124px;
+      height: 124px;
+      background: white;
+      border-radius: 50%;
+    }
+
+    .donut-center {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .donut-center strong {
+      font-size: 27px;
+      color: #563938;
+    }
+
+    .donut-center span {
+      font-size: 12px;
+      color: #777;
+      margin-top: 4px;
+    }
+
+    .payment-legend {
+      flex: 1;
+      min-width: 220px;
+      max-width: 350px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .legend-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 4px;
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+
+    .legend-dot.pago {
+      background: #2E7D32;
+    }
+
+    .legend-dot.pendente {
+      background: #e7dedb;
+      border: 1px solid #d5cbc7;
+    }
+
+    .legend-description {
+      flex: 1;
+    }
+
+    .legend-description span {
+      display: block;
+      color: #765454;
+      font-size: 13px;
+      margin-bottom: 5px;
+    }
+
+    .legend-description strong {
+      display: block;
+      font-size: 19px;
+      color: #563938;
     }
 
     .bar-label {
@@ -140,6 +247,7 @@
       height: 100%;
       background: #765454;
       border-radius: 20px;
+      transition: width 0.5s ease;
     }
 
     .note {
@@ -157,198 +265,326 @@
     }
 
     @media (max-width: 600px) {
-      .cards { grid-template-columns: 1fr; }
-      .card .value { font-size: 26px; }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .card .value {
+        font-size: 26px;
+      }
+
+      .payment-chart {
+        gap: 25px;
+      }
+
+      .donut {
+        width: 175px;
+        height: 175px;
+      }
+
+      .donut::before {
+        width: 115px;
+        height: 115px;
+      }
+
+      .payment-legend {
+        width: 100%;
+      }
+
+      .chart-box {
+        padding: 20px;
+      }
     }
+
   </style>
 </head>
 
 <body>
 
-  <header>
-    <h1>CADPLAN</h1>
-    <p>CENTRAL DE GESTÃO DE OBRAS</p>
-    <h2>Santuário São Judas Tadeu</h2>
-    <small>Sete Lagoas – Minas Gerais</small>
-  </header>
+<header>
+  <h1>CADPLAN</h1>
+  <p>CENTRAL DE GESTÃO DE OBRAS</p>
+  <h2>Santuário São Judas Tadeu</h2>
+  <small>Sete Lagoas – Minas Gerais</small>
+</header>
 
-  <main>
-    <a class="back" href="index.html">
-      ← Voltar ao Menu Principal
-    </a>
+<main>
 
-    <h2 class="section-title">Painel Executivo</h2>
+  <a class="back" href="index.html">
+    ← Voltar ao Menu Principal
+  </a>
 
-    <p class="subtitle">
-      Visão geral dos contratos e da
-      execução financeira das obras.
-    </p>
-    <p class="subtitle" id="ultima_atualizacao">
-  Última atualização: —
-</p>
+  <h2 class="section-title">Painel Executivo</h2>
 
-   <h2 class="group-title">1. Gestão Contratual</h2>
-    
-    <div class="cards">
+  <p class="subtitle">
+    Visão geral dos contratos e da
+    execução financeira das obras.
+  </p>
 
-  <div class="card">
-    <div class="label">Valor Contratado</div>
-    <div class="value" id="total_contratado">—</div>
-  </div>
+  <p class="subtitle" id="ultima_atualizacao">
+    Última atualização: —
+  </p>
 
-  <div class="card">
-    <div class="label">Valor Faturado</div>
-    <div class="value" id="total_faturado">—</div>
-  </div>
+  <!-- 1. GESTAO CONTRATUAL -->
+
+  <h2 class="group-title">1. Gestão Contratual</h2>
+
+  <div class="cards">
 
     <div class="card">
-    <div class="label">Saldo a Faturar</div>
-    <div class="value" id="saldo_a_faturar">—</div>
+      <div class="label">Valor Contratado</div>
+      <div class="value" id="total_contratado">—</div>
+    </div>
+
+    <div class="card">
+      <div class="label">Valor Faturado</div>
+      <div class="value" id="total_faturado">—</div>
+    </div>
+
+    <div class="card">
+      <div class="label">Saldo a Faturar</div>
+      <div class="value" id="saldo_a_faturar">—</div>
+    </div>
+
   </div>
+
+  <!-- 2. GESTAO FINANCEIRA -->
+
+  <h2 class="group-title">2. Gestão Financeira</h2>
+
+  <div class="cards">
+
+    <div class="card">
+      <div class="label">Valor Pago</div>
+      <div class="value" id="total_pago">—</div>
+    </div>
+
+    <div class="card">
+      <div class="label">Valor Pendente de Pagamento</div>
+      <div class="value" id="saldo_a_pagar">—</div>
+    </div>
+
+    <div class="card">
+      <div class="label">Valores a Vencer</div>
+      <div class="value" id="total_a_vencer">—</div>
+    </div>
+
+    <div class="card">
+      <div class="label">Valores Vencidos</div>
+      <div class="value" id="total_vencido">—</div>
+    </div>
+
+  </div>
+
+  <!-- GRAFICO DE DISTRIBUICAO -->
+
+  <div class="chart-box">
+
+    <h3>Distribuição dos Pagamentos</h3>
+
+    <div class="payment-chart">
+
+      <div
+        class="donut"
+        id="grafico_pagamentos"
+        role="img"
+        aria-label="Distribuição entre valores pagos e pendentes"
+      >
+
+        <div class="donut-center">
+          <strong id="percentual_pagamentos">—</strong>
+          <span>Do total pago</span>
+        </div>
+
       </div>
 
-<h2 class="group-title">2. Gestão Financeira</h2>
+      <div class="payment-legend">
 
-<div class="cards">
-  <div class="card">
-    <div class="label">Valor Pago</div>
-    <div class="value" id="total_pago">—</div>
-  </div>
+        <div class="legend-item">
 
-  <div class="card">
-    <div class="label">Valor Pendente de Pagamento</div>
-    <div class="value" id="saldo_a_pagar">—</div>
-  </div>
+          <div class="legend-dot pago"></div>
 
-  <div class="card">
-    <div class="label">Valores a Vencer</div>
-    <div class="value" id="total_a_vencer">—</div>
-  </div>
+          <div class="legend-description">
+            <span>Valor Pago</span>
+            <strong id="valor_pago_grafico">—</strong>
+          </div>
 
-  <div class="card">
-    <div class="label">Valores Vencidos</div>
-    <div class="value" id="total_vencido">—</div>
-  </div>
-  </div>
+        </div>
 
-<h2 class="group-title">3. Planejamento Financeiro</h2>
+        <div class="legend-item">
 
-<div class="cards">
+          <div class="legend-dot pendente"></div>
 
-  <div class="card">
-    <div class="label">Pagamentos nos Próximos 7 Dias</div>
-    <div class="value" id="proximos_7_dias">—</div>
-  </div>
+          <div class="legend-description">
+            <span>Valor Pendente de Pagamento</span>
+            <strong id="valor_pendente_grafico">—</strong>
+          </div>
 
-  <div class="card">
-    <div class="label">Pagamentos nos Próximos 15 Dias</div>
-    <div class="value" id="proximos_15_dias">—</div>
-  </div>
+        </div>
 
-  <div class="card">
-    <div class="label">Pagamentos nos Próximos 30 Dias</div>
-    <div class="value" id="proximos_30_dias">—</div>
-  </div>
-</div>
+      </div>
 
-<h2 class="group-title">4. Gestão Administrativa</h2>
-    
-<div class="cards">
-  <div class="card">
-    <div class="label">Notas Fiscais</div>
-    <div class="value" id="notas_fiscais">—</div>
-  </div>
-
-  <div class="card">
-    <div class="label">Contratos</div>
-    <div class="value" id="contratos">—</div>
-  </div>
-
-  <div class="card">
-    <div class="label">Fornecedores</div>
-    <div class="value" id="fornecedores">—</div>
-  </div>
-
-  <div class="card">
-    <div class="label">Centros de Custo Ativos</div>
-    <div class="value" id="centros_custo_ativos">—</div>
-  </div>
-
-  <div class="card">
-    <div class="label">Atividades Contratadas</div>
-    <div class="value" id="atividades_contratadas">—</div>
-  </div>
-
-</div>
-</div>
-
-<h3>Acompanhamento Financeiro</h3>
-
-<div class="bar-label">
-  <span>Faturado / Contratado</span>
-  <strong id="texto_percentual_faturado">—</strong>
-</div>
-<div class="bar-bg">
-  <div class="bar-fill" id="barra_percentual_faturado" style="width:0%"></div>
-</div>
-
-<div class="bar-label">
-  <span>Pago / Faturado</span>
-  <strong id="texto_percentual_pago">—</strong>
-</div>
-<div class="bar-bg">
-  <div class="bar-fill" id="barra_percentual_pago" style="width:0%"></div>
-</div>
-      <p class="note">
-        Dados demonstrativos referentes ao
-        último levantamento financeiro.
-        Os valores serão atualizados
-        conforme os registros administrativos.
-      </p>
     </div>
-  </main>
 
-  <footer>
-    Desenvolvido por CADPLAN |
-    Gerenciamento e Construções
-  </footer>
+    <p class="note">
+      Distribuição calculada com base nos valores pagos
+      e pendentes de pagamento registrados.
+    </p>
 
+  </div>
 
+  <!-- 3. PLANEJAMENTO FINANCEIRO -->
+
+  <h2 class="group-title">3. Planejamento Financeiro</h2>
+
+  <div class="cards">
+
+    <div class="card">
+      <div class="label">Pagamentos nos Próximos 7 Dias</div>
+      <div class="value" id="proximos_7_dias">—</div>
+    </div>
+
+    <div class="card">
+      <div class="label">Pagamentos nos Próximos 15 Dias</div>
+      <div class="value" id="proximos_15_dias">—</div>
+    </div>
+
+    <div class="card">
+      <div class="label">Pagamentos nos Próximos 30 Dias</div>
+      <div class="value" id="proximos_30_dias">—</div>
+    </div>
+
+  </div>
+
+  <!-- 4. GESTAO ADMINISTRATIVA -->
+
+  <h2 class="group-title">4. Gestão Administrativa</h2>
+
+  <div class="cards">
+
+    <div class="card">
+      <div class="label">Notas Fiscais</div>
+      <div class="value" id="notas_fiscais">—</div>
+    </div>
+
+    <div class="card">
+      <div class="label">Contratos</div>
+      <div class="value" id="contratos">—</div>
+    </div>
+
+    <div class="card">
+      <div class="label">Fornecedores</div>
+      <div class="value" id="fornecedores">—</div>
+    </div>
+
+    <div class="card">
+      <div class="label">Centros de Custo Ativos</div>
+      <div class="value" id="centros_custo_ativos">—</div>
+    </div>
+
+    <div class="card">
+      <div class="label">Atividades Contratadas</div>
+      <div class="value" id="atividades_contratadas">—</div>
+    </div>
+
+  </div>
+
+  <!-- ACOMPANHAMENTO FINANCEIRO -->
+
+  <div class="chart-box">
+
+    <h3>Acompanhamento Financeiro</h3>
+
+    <div class="bar-label">
+      <span>Faturado / Contratado</span>
+      <strong id="texto_percentual_faturado">—</strong>
+    </div>
+
+    <div class="bar-bg">
+      <div
+        class="bar-fill"
+        id="barra_percentual_faturado"
+        style="width:0%"
+      ></div>
+    </div>
+
+    <div class="bar-label">
+      <span>Pago / Faturado</span>
+      <strong id="texto_percentual_pago">—</strong>
+    </div>
+
+    <div class="bar-bg">
+      <div
+        class="bar-fill"
+        id="barra_percentual_pago"
+        style="width:0%"
+      ></div>
+    </div>
+
+    <p class="note">
+      Indicadores atualizados conforme os registros
+      financeiros e administrativos da obra.
+    </p>
+
+  </div>
+
+</main>
+
+<footer>
+  Desenvolvido por CADPLAN |
+  Gerenciamento e Construções
+</footer>
 
 <script>
+
 async function carregarDados() {
+
   try {
+
     const resposta = await fetch(
       "indicadores.json?t=" + Date.now(),
       { cache: "no-store" }
     );
 
     if (!resposta.ok) {
-      throw new Error("Não foi possível carregar os indicadores.");
+      throw new Error(
+        "Não foi possível carregar os indicadores."
+      );
     }
 
     const dados = await resposta.json();
     const indicadores = dados.indicadores;
-    
-const elementoAtualizacao = document.getElementById("ultima_atualizacao");
 
-if (elementoAtualizacao && dados.atualizado_em) {
-  const dataAtualizacao = new Date(dados.atualizado_em);
+    // FORMATACAO DE DATA
 
-  if (!Number.isNaN(dataAtualizacao.getTime())) {
-    const dataFormatada = dataAtualizacao.toLocaleString("pt-BR", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: false
-    });
+    const elementoAtualizacao =
+      document.getElementById("ultima_atualizacao");
 
-    elementoAtualizacao.textContent =
-      "Última atualização: " + dataFormatada;
-  }
-}
+    if (elementoAtualizacao && dados.atualizado_em) {
+
+      const dataAtualizacao = new Date(
+        dados.atualizado_em
+      );
+
+      if (!Number.isNaN(dataAtualizacao.getTime())) {
+
+        const dataFormatada =
+          dataAtualizacao.toLocaleString("pt-BR", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false
+          });
+
+        elementoAtualizacao.textContent =
+          "Última atualização: " + dataFormatada;
+      }
+    }
+
+    // FORMATACAO DE MOEDA
 
     const moeda = new Intl.NumberFormat("pt-BR", {
       style: "currency",
@@ -382,72 +618,202 @@ if (elementoAtualizacao && dados.atualizado_em) {
     ];
 
     campos.forEach(campo => {
-      const elemento = document.getElementById(campo);
+
+      const elemento =
+        document.getElementById(campo);
+
       const valor = indicadores[campo];
 
       if (elemento && typeof valor === "number") {
-        elemento.textContent = camposQuantidade.includes(campo)
-          ? valor.toLocaleString("pt-BR", {
-              maximumFractionDigits: 0
-            })
-          : moeda.format(valor);
+
+        elemento.textContent =
+          camposQuantidade.includes(campo)
+            ? valor.toLocaleString("pt-BR", {
+                maximumFractionDigits: 0
+              })
+            : moeda.format(valor);
       }
+
     });
 
-    
-const barras = {
-  percentual_faturado: "barra_percentual_faturado",
-  percentual_pago: "barra_percentual_pago"
-};
+    // GRAFICO DE DISTRIBUICAO DOS PAGAMENTOS
 
-Object.entries(barras).forEach(([campo, id]) => {
-  const barra = document.getElementById(id);
-  const valor = indicadores[campo];
+    const grafico =
+      document.getElementById("grafico_pagamentos");
 
-  if (barra && typeof valor === "number") {
-    const percentual = Math.max(
-      0,
-      Math.min(100, valor * 100)
+    const percentualCentro =
+      document.getElementById("percentual_pagamentos");
+
+    const valorPagoTexto =
+      document.getElementById("valor_pago_grafico");
+
+    const valorPendenteTexto =
+      document.getElementById("valor_pendente_grafico");
+
+    const temDados =
+      typeof indicadores.total_pago === "number" ||
+      typeof indicadores.saldo_a_pagar === "number";
+
+    if (temDados) {
+
+      const valorPago =
+        typeof indicadores.total_pago === "number"
+          ? Math.max(0, indicadores.total_pago)
+          : 0;
+
+      const valorPendente =
+        typeof indicadores.saldo_a_pagar === "number"
+          ? Math.max(0, indicadores.saldo_a_pagar)
+          : 0;
+
+      const totalDistribuicao =
+        valorPago + valorPendente;
+
+      const percentual =
+        totalDistribuicao > 0
+          ? (valorPago / totalDistribuicao) * 100
+          : 0;
+
+      if (grafico) {
+
+        grafico.style.setProperty(
+          "--pago-percentual",
+          percentual + "%"
+        );
+
+        grafico.setAttribute(
+          "aria-label",
+          "Valor pago: " + moeda.format(valorPago) +
+          ". Valor pendente: " + moeda.format(valorPendente)
+        );
+      }
+
+      if (percentualCentro) {
+
+        percentualCentro.textContent =
+          percentual.toLocaleString("pt-BR", {
+            minimumFractionDigits: 1,
+            maximumFractionDigits: 1
+          }) + "%";
+      }
+
+      if (valorPagoTexto) {
+        valorPagoTexto.textContent =
+          moeda.format(valorPago);
+      }
+
+      if (valorPendenteTexto) {
+        valorPendenteTexto.textContent =
+          moeda.format(valorPendente);
+      }
+
+    } else {
+
+      if (percentualCentro) {
+        percentualCentro.textContent = "—";
+      }
+
+      if (valorPagoTexto) {
+        valorPagoTexto.textContent = "—";
+      }
+
+      if (valorPendenteTexto) {
+        valorPendenteTexto.textContent = "—";
+      }
+    }
+
+    // BARRAS DE ACOMPANHAMENTO FINANCEIRO
+
+    const barras = {
+      percentual_faturado:
+        "barra_percentual_faturado",
+
+      percentual_pago:
+        "barra_percentual_pago"
+    };
+
+    Object.entries(barras).forEach(([campo, id]) => {
+
+      const barra = document.getElementById(id);
+      const valor = indicadores[campo];
+
+      const idTexto =
+        campo === "percentual_faturado"
+          ? "texto_percentual_faturado"
+          : "texto_percentual_pago";
+
+      const texto = document.getElementById(idTexto);
+
+      if (typeof valor === "number") {
+
+        const percentual = Math.max(
+          0,
+          Math.min(100, valor * 100)
+        );
+
+        if (barra) {
+          barra.style.width =
+            percentual.toFixed(1) + "%";
+        }
+
+        if (texto) {
+
+          texto.textContent =
+            percentual.toLocaleString("pt-BR", {
+              minimumFractionDigits: 1,
+              maximumFractionDigits: 1
+            }) + "%";
+        }
+      }
+
+    });
+
+    // DESTAQUE PARA VALORES VENCIDOS
+
+    const elementoVencido =
+      document.getElementById("total_vencido");
+
+    if (
+      elementoVencido &&
+      typeof indicadores.total_vencido === "number"
+    ) {
+
+      elementoVencido.style.color =
+        indicadores.total_vencido > 0
+          ? "#C62828"
+          : "#563938";
+    }
+
+    // DESTAQUE PARA VALORES PAGOS
+
+    const elementoPago =
+      document.getElementById("total_pago");
+
+    if (
+      elementoPago &&
+      typeof indicadores.total_pago === "number"
+    ) {
+
+      elementoPago.style.color = "#2E7D32";
+    }
+
+    console.log(
+      "Indicadores CADPLAN atualizados:",
+      dados
     );
 
-    barra.style.width = percentual.toFixed(1) + "%";
-
-    const idTexto = campo === "percentual_faturado"
-      ? "texto_percentual_faturado"
-      : "texto_percentual_pago";
-
-    const texto = document.getElementById(idTexto);
-
-    if (texto) {
-      texto.textContent = percentual.toLocaleString("pt-BR", {
-        minimumFractionDigits: 1,
-        maximumFractionDigits: 1
-      }) + "%";
-    }
-  }
-});
-
-const elementoVencido = document.getElementById("total_vencido");
-
-if (elementoVencido && typeof indicadores.total_vencido === "number") {
-  elementoVencido.style.color =
-    indicadores.total_vencido > 0 ? "#C62828" : "#563938";
-}
-    const elementoPago = document.getElementById("total_pago");
-
-if (elementoPago && typeof indicadores.total_pago === "number") {
-  elementoPago.style.color = "#2E7D32";
-}
-    console.log("Indicadores CADPLAN atualizados:", dados);
-    
   } catch (erro) {
-    console.error("Erro na atualização do painel:", erro);
+
+    console.error(
+      "Erro na atualização do painel:",
+      erro
+    );
   }
 }
 
 carregarDados();
+
 </script>
 
 </body>
 </html>
-
