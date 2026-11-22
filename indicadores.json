@@ -1,7 +1,7 @@
 {
   "instituicao": "Santuário São Judas Tadeu",
   "cidade": "Sete Lagoas/MG",
-  "atualizado_em": "2026-11-22T14:54:44",
+  "atualizado_em": "2026-11-22T14:56:46",
   "indicadores": {
     "total_contratado": 42400,
     "total_faturado": 13590,
@@ -596,6 +596,47 @@
       "centros_custo": [],
       "percentual_faturado": 0,
       "ativo": false
+    }
+  ],
+  "controle_financeiro": [
+    {
+      "processo": "SSJT-MC-001-2026",
+      "empresa": "DÚ VIDROS",
+      "servico": "INSTALAÇÃO DE GUARDA-CORPO DO CORAL",
+      "centro_custo": "PREVENÇÃO E COMBATE A INCÊNDIO",
+      "atividade": "SERRALHERIA",
+      "valor_contratado": 6400,
+      "valor_faturado": 3840,
+      "valor_pago": 3840,
+      "saldo_a_faturar": 2560,
+      "saldo_a_pagar": 0,
+      "percentual_faturado": 0.6
+    },
+    {
+      "processo": "SSJT-MC-002-2026",
+      "empresa": "F INOXIDÁVEL",
+      "servico": "INSTALAÇÃO DE GUARDA-CORPO E CORRIMÃO",
+      "centro_custo": "PREVENÇÃO E COMBATE A INCÊNDIO",
+      "atividade": "SERRALHERIA",
+      "valor_contratado": 33000,
+      "valor_faturado": 8250,
+      "valor_pago": 8250,
+      "saldo_a_faturar": 24750,
+      "saldo_a_pagar": 0,
+      "percentual_faturado": 0.25
+    },
+    {
+      "processo": "SSJT-MC-003-2026",
+      "empresa": "DASEIN ARQ. E URB.",
+      "servico": "PROJETO ARQUITETÔNICO DE REFORMA DA COZINHA",
+      "centro_custo": "REFORMA DA COZINHA",
+      "atividade": "PROJETOS",
+      "valor_contratado": 3000,
+      "valor_faturado": 1500,
+      "valor_pago": 0,
+      "saldo_a_faturar": 1500,
+      "saldo_a_pagar": 1500,
+      "percentual_faturado": 0.5
     }
   ]
 }
