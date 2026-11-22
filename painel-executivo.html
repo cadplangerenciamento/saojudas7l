@@ -173,6 +173,9 @@
       Visão geral dos contratos e da
       execução financeira das obras.
     </p>
+    <p class="subtitle" id="ultima_atualizacao">
+  Última atualização: —
+</p>
 
    <h2 class="section-title">1. Gestão Contratual</h2>
     
@@ -316,6 +319,26 @@ async function carregarDados() {
 
     const dados = await resposta.json();
     const indicadores = dados.indicadores;
+    
+const elementoAtualizacao = document.getElementById("ultima_atualizacao");
+
+if (elementoAtualizacao && dados.atualizado_em) {
+  const dataAtualizacao = new Date(dados.atualizado_em);
+
+  if (!Number.isNaN(dataAtualizacao.getTime())) {
+    const dataFormatada = dataAtualizacao.toLocaleString("pt-BR", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false
+    });
+
+    elementoAtualizacao.textContent =
+      "Última atualização: " + dataFormatada;
+  }
+}
 
     const moeda = new Intl.NumberFormat("pt-BR", {
       style: "currency",
