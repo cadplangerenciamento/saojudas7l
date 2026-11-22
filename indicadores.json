@@ -1,7 +1,7 @@
 {
   "instituicao": "Santuário São Judas Tadeu",
   "cidade": "Sete Lagoas/MG",
-  "atualizado_em": "2026-11-22T14:46:34",
+  "atualizado_em": "2026-11-22T14:52:34",
   "indicadores": {
     "total_contratado": 42400,
     "total_faturado": 13590,
@@ -51,6 +51,551 @@
       "percentual_faturado": 0.5,
       "quantidade_contratos": 1,
       "ativo": true
+    }
+  ],
+  "atividades": [
+    {
+      "codigo": "AT-001",
+      "nome": "PROJETOS",
+      "valor_contratado": 3000,
+      "valor_faturado": 1500,
+      "saldo_a_faturar": 1500,
+      "quantidade_contratos": 1,
+      "centros_custo": [
+        "REFORMA DA COZINHA"
+      ],
+      "percentual_faturado": 0.5,
+      "ativo": true
+    },
+    {
+      "codigo": "AT-002",
+      "nome": "ESTUDOS, LAUDOS E PARECERES TÉCNICOS",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-003",
+      "nome": "TAXAS E EMOLUMENTOS",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-004",
+      "nome": "REGULARIZAÇÕES E LICENCIAMENTOS",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-005",
+      "nome": "ADMINISTRAÇÃO E GERENCIAMENTO",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-006",
+      "nome": "SEGUROS",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-007",
+      "nome": "SERVIÇOS PRELIMINARES",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-008",
+      "nome": "INSTALAÇÕES PROVISÓRIAS",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-009",
+      "nome": "LOCAÇÃO DE MÁQUINAS E EQUIPAMENTOS",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-010",
+      "nome": "TERRAPLENAGEM E TRABALHOS EM TERRA",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-011",
+      "nome": "FUNDAÇÕES",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-012",
+      "nome": "GRANITOS",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-013",
+      "nome": "ESTRUTURAS DE CONCRETO",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-014",
+      "nome": "ALVENARIAS E DIVISÓRIAS",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-015",
+      "nome": "ESQUADRIAS E FERRAGENS",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-016",
+      "nome": "COBERTURAS E PROTEÇÕES",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-017",
+      "nome": "IMPERMEABILIZAÇÃO E ISOLAMENTO TÉRMICO",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-018",
+      "nome": "PISOS",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-019",
+      "nome": "SERRALHERIA",
+      "valor_contratado": 39400,
+      "valor_faturado": 12090,
+      "saldo_a_faturar": 27310,
+      "quantidade_contratos": 2,
+      "centros_custo": [
+        "PREVENÇÃO E COMBATE A INCÊNDIO"
+      ],
+      "percentual_faturado": 0.3068527918781726,
+      "ativo": true
+    },
+    {
+      "codigo": "AT-020",
+      "nome": "REVESTIMENTOS",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-021",
+      "nome": "FORROS",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-022",
+      "nome": "MARCENARIA",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-023",
+      "nome": "PINTURA",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-024",
+      "nome": "LOUÇAS, METAIS E ACESSÓRIOS",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-025",
+      "nome": "BANCADAS E PRATELEIRAS",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-026",
+      "nome": "INSTALAÇÕES ELÉTRICAS",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-027",
+      "nome": "INSTALAÇÕES DE REDE LÓGICA E TELEFONIA",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-028",
+      "nome": "SISTEMAS DE CFTV",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-029",
+      "nome": "INSTALAÇÕES DE SPDA",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-030",
+      "nome": "INSTALAÇÕES HIDROSSANITÁRIAS",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-031",
+      "nome": "DRENAGEM",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-032",
+      "nome": "PREVENÇÃO E COMBATE A INCÊNDIO",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-033",
+      "nome": "INSTALAÇÕES DE GASES",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-034",
+      "nome": "CLIMATIZAÇÃO, VENTILAÇÃO E EXAUSTÃO",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-035",
+      "nome": "PONTOS DE INSTALAÇÕES",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-036",
+      "nome": "VIDROS E ESPELHOS",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-037",
+      "nome": "ELEVADORES E PLATAFORMAS ELEVATÓRIAS",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-038",
+      "nome": "SONORIZAÇÃO E MULTIMÍDIA",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-039",
+      "nome": "MOBILIÁRIO E EQUIPAMENTOS",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-040",
+      "nome": "PLACAS E SINALIZAÇÕES VISUAIS",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-041",
+      "nome": "RESTAURAÇÃO DE BENS ARTÍSTICOS E SACROS",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-042",
+      "nome": "SERVIÇOS DE PAISAGISMO",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-043",
+      "nome": "URBANIZAÇÃO E OBRAS COMPLEMENTARES",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-044",
+      "nome": "OBRAS VIÁRIAS",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-045",
+      "nome": "TRANSPORTES",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-046",
+      "nome": "ENSAIOS E CONTROLE TECNOLÓGICO",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-047",
+      "nome": "MANUTENÇÕES PREVENTIVAS E CORRETIVAS",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-048",
+      "nome": "SERVIÇOS COMPLEMENTARES",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
+    },
+    {
+      "codigo": "AT-049",
+      "nome": "LIMPEZA DE OBRA",
+      "valor_contratado": 0,
+      "valor_faturado": 0,
+      "saldo_a_faturar": 0,
+      "quantidade_contratos": 0,
+      "centros_custo": [],
+      "percentual_faturado": 0,
+      "ativo": false
     }
   ]
 }
