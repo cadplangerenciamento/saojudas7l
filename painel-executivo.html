@@ -178,22 +178,22 @@
 
       <div class="card">
         <div class="label">Valor Contratado</div>
-        <div class="value">R$ 42.400,00</div>
+        <div class="value" id="total_contratado">R$ 42.400,00</div>
       </div>
 
       <div class="card">
         <div class="label">Valor Faturado</div>
-        <div class="value">R$ 13.590,00</div>
+        <div class="value" id="total_faturado">R$ 13.590,00</div>
       </div>
 
       <div class="card">
         <div class="label">Valor Pago</div>
-        <div class="value">R$ 12.090,00</div>
+        <div class="value" id="total_pago">R$ 12.090,00</div>
       </div>
 
       <div class="card">
         <div class="label">Valor Pendente de Pagamento</div>
-        <div class="value">R$ 1.500,00</div>
+        <div class="value" id="saldo_a_pagar">R$ 1.500,00</div>
       </div>
 
     </div>
@@ -249,6 +249,28 @@ async function atualizarIndicadores() {
     const dados = await resposta.json();
 
     console.log("Indicadores CADPLAN carregados:", dados);
+    
+const moeda = new Intl.NumberFormat("pt-BR", {
+  style: "currency",
+  currency: "BRL"
+});
+
+const campos = [
+  "total_contratado",
+  "total_faturado",
+  "total_pago",
+  "saldo_a_pagar"
+];
+
+campos.forEach(campo => {
+  const elemento = document.getElementById(campo);
+  const valor = dados.indicadores[campo];
+
+  if (elemento && typeof valor === "number") {
+    elemento.textContent = moeda.format(valor);
+  }
+});
+
   } catch (erro) {
     console.error("Erro ao atualizar indicadores:", erro);
   }
