@@ -5,396 +5,1162 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#563938">
-<title>CADPLAN | Programação Semanal</title>
+
+<title>CADPLAN | Programação Semanal de Pagamentos</title>
+
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f7f5f3;color:#333}
-header{background:#563938;color:white;text-align:center;padding:35px 18px}
-header h1{margin:0 0 8px;font-size:32px;letter-spacing:2px}
-header .subtitle{color:#ffcb94;font-size:13px;letter-spacing:1px}
-header h2{font-size:19px;margin:20px 0 5px}
-header small{opacity:.85}
-main{max-width:1100px;margin:30px auto;padding:0 18px}
-.back{display:inline-block;color:#765454;text-decoration:none;font-weight:bold;margin-bottom:25px}
-h2{color:#563938}
-.section-title{font-size:23px;margin:0 0 8px}
-.description{font-size:14px;color:#777;line-height:1.6}
-.update{font-size:12px;color:#777;margin:15px 0 25px}
-.group-title{font-size:19px;margin:30px 0 16px;padding-bottom:10px;border-bottom:2px solid #8b5e5a}
-.week-nav{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;background:white;border:1px solid #e7dedb;border-radius:12px;padding:16px;margin-bottom:18px}
-.week-label{font-size:17px;font-weight:bold;color:#563938;text-align:center}
-button{border:1px solid #765454;border-radius:8px;background:white;color:#563938;padding:11px 15px;cursor:pointer;font-size:13px;font-weight:bold}
-button:hover{background:#f1e9e5}
-button.primary{background:#563938;color:white}
-.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
-.card,.filters,.day,.entry{background:white;border:1px solid #e7dedb;border-radius:12px;box-shadow:0 3px 12px #0000000a}
-.card{padding:22px}
-.label{color:#765454;font-size:14px;margin-bottom:10px}
-.value{font-size:25px;font-weight:bold;color:#563938;overflow-wrap:anywhere}
-.filters{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:16px;margin:20px 0}
-.filters select{width:100%;padding:12px;border:1px solid #ddd2cd;border-radius:8px;background:white;font-size:14px;color:#333}
-.day{margin:18px 0;overflow:hidden}
-.day-header{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#f0e9e6;padding:15px 18px;color:#563938;font-weight:bold}
-.day-total{font-size:14px}
-.day-content{padding:14px}
-.entry{padding:17px;margin-bottom:12px;box-shadow:none}
-.entry:last-child{margin-bottom:0}
-.entry-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
-.entry-name{font-size:16px;font-weight:bold;color:#563938}
-.entry-process{font-size:12px;color:#888;margin:6px 0}
-.entry-service{font-size:13px;color:#555;line-height:1.5;margin:10px 0}
-.entry-meta{font-size:12px;color:#777;line-height:1.7}
-.entry-bottom{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:12px}
-.entry-value{font-size:18px;font-weight:bold;color:#563938}
-.status{font-size:11px;font-weight:bold;padding:7px 11px;border-radius:20px;white-space:nowrap}
-.pago{background:#e5f2e7;color:#27753b}
-.vencido{background:#fbe6e5;color:#a12b27}
-.avencer{background:#fff1d9;color:#95620b}
-.empty{padding:24px;text-align:center;color:#888;font-size:14px;line-height:1.5}
-.note{font-size:12px;color:#777;line-height:1.6;margin-top:25px}
-footer{text-align:center;padding:30px 15px;color:#777;font-size:12px}
-@media(max-width:650px){
-.cards{grid-template-columns:repeat(2,minmax(0,1fr))}
-.filters{grid-template-columns:1fr}
-.week-nav{justify-content:center}
-.week-label{width:100%;order:-1}
+* {
+    box-sizing: border-box;
 }
-@media(max-width:430px){
-.cards{grid-template-columns:1fr}
-.day-header{flex-wrap:wrap}
-.value{font-size:23px}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: #333;
+    background-color: #f7f5f3;
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,.70),
+            rgba(255,255,255,.78)
+        ),
+        url("fundo-obras.png");
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+}
+
+/* CABEÇALHO */
+
+header {
+    text-align: center;
+    padding: 30px 18px 25px;
+    color: #563938;
+}
+
+.logo {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    max-height: 170px;
+    object-fit: contain;
+    margin: 0 auto 18px;
+}
+
+header .subtitle {
+    color: #765454;
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+header h2 {
+    font-size: 20px;
+    margin: 12px 0 5px;
+    color: #563938;
+}
+
+header small {
+    font-size: 14px;
+    color: #765454;
+}
+
+/* CONTEÚDO */
+
+main {
+    max-width: 1100px;
+    margin: 10px auto 30px;
+    padding: 0 18px;
+}
+
+.back {
+    display: inline-block;
+    color: #765454;
+    text-decoration: none;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+.back:hover {
+    text-decoration: underline;
+}
+
+h2 {
+    color: #563938;
+}
+
+.section-title {
+    font-size: 23px;
+    margin: 0 0 8px;
+}
+
+.description {
+    font-size: 14px;
+    color: #594b48;
+    line-height: 1.6;
+}
+
+.update {
+    font-size: 12px;
+    color: #765454;
+    margin: 15px 0 25px;
+}
+
+.group-title {
+    font-size: 19px;
+    margin: 30px 0 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #8b5e5a;
+}
+
+/* NAVEGAÇÃO SEMANAL */
+
+.week-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    background: rgba(255,255,255,.94);
+    border: 1px solid #e7dedb;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 18px;
+}
+
+.week-label {
+    font-size: 17px;
+    font-weight: bold;
+    color: #563938;
+    text-align: center;
+}
+
+button {
+    border: 1px solid #765454;
+    border-radius: 8px;
+    background: #fff;
+    color: #563938;
+    padding: 11px 15px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+button:hover {
+    background: #f1e9e5;
+}
+
+button.primary {
+    background: #563938;
+    color: #fff;
+}
+
+/* INDICADORES */
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 15px;
+}
+
+.card {
+    background: rgba(255,255,255,.94);
+    border: 1px solid #e7dedb;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px #0000000a;
+    padding: 22px;
+}
+
+.label {
+    color: #765454;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.value {
+    font-size: 25px;
+    font-weight: bold;
+    color: #563938;
+    overflow-wrap: anywhere;
+}
+
+/* FILTROS */
+
+.filters {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 16px;
+    margin: 20px 0;
+    background: rgba(255,255,255,.94);
+    border: 1px solid #e7dedb;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px #0000000a;
+}
+
+.filters select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd2cd;
+    border-radius: 8px;
+    background: #fff;
+    font-size: 14px;
+    color: #333;
+}
+
+/* DIAS DA SEMANA */
+
+.day {
+    background: rgba(255,255,255,.94);
+    border: 1px solid #e7dedb;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px #0000000a;
+    margin: 18px 0;
+    overflow: hidden;
+}
+
+.day-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    background: #f0e9e6;
+    padding: 15px 18px;
+    color: #563938;
+    font-weight: bold;
+}
+
+.day-total {
+    font-size: 14px;
+}
+
+.day-content {
+    padding: 14px;
+}
+
+/* PAGAMENTOS INDIVIDUAIS */
+
+.entry {
+    background: rgba(255,255,255,.97);
+    border: 1px solid #e7dedb;
+    border-radius: 12px;
+    padding: 17px;
+    margin-bottom: 12px;
+}
+
+.entry:last-child {
+    margin-bottom: 0;
+}
+
+.entry-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.entry-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: #563938;
+}
+
+.entry-process {
+    font-size: 12px;
+    color: #888;
+    margin: 6px 0;
+}
+
+.entry-service {
+    font-size: 13px;
+    color: #555;
+    line-height: 1.5;
+    margin: 10px 0;
+}
+
+.entry-meta {
+    font-size: 12px;
+    color: #777;
+    line-height: 1.7;
+}
+
+.entry-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+}
+
+.entry-value {
+    font-size: 18px;
+    font-weight: bold;
+    color: #563938;
+}
+
+/* SITUAÇÃO DOS PAGAMENTOS */
+
+.status {
+    font-size: 11px;
+    font-weight: bold;
+    padding: 7px 11px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+.pago {
+    background: #e5f2e7;
+    color: #27753b;
+}
+
+.vencido {
+    background: #fbe6e5;
+    color: #a12b27;
+}
+
+.avencer {
+    background: #fff1d9;
+    color: #95620b;
+}
+
+/* MENSAGENS */
+
+.empty {
+    padding: 24px;
+    text-align: center;
+    color: #888;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.note {
+    font-size: 12px;
+    color: #594b48;
+    line-height: 1.6;
+    margin-top: 25px;
+}
+
+/* RODAPÉ */
+
+footer {
+    text-align: center;
+    padding: 30px 15px;
+    color: #563938;
+    font-size: 12px;
+}
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 650px) {
+    body {
+        background-attachment: scroll;
+    }
+
+    .cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .filters {
+        grid-template-columns: 1fr;
+    }
+
+    .week-nav {
+        justify-content: center;
+    }
+
+    .week-label {
+        width: 100%;
+        order: -1;
+    }
+}
+
+@media (max-width: 430px) {
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .day-header {
+        flex-wrap: wrap;
+    }
+
+    .value {
+        font-size: 23px;
+    }
+
+    .logo {
+        max-width: 260px;
+    }
 }
 </style>
 </head>
 
 <body>
+
+<!-- CABEÇALHO -->
+
 <header>
-<h1>CADPLAN</h1>
-<div class="subtitle">CENTRAL DE GESTÃO DE OBRAS</div>
-<h2>Santuário São Judas Tadeu</h2>
-<small>Sete Lagoas – Minas Gerais</small>
+
+    <img
+        class="logo"
+        src="Marca%20com%20slogan%20sem%20fundo.png"
+        alt="CADPLAN - Sua obra, nosso desafio"
+    >
+
+    <div class="subtitle">
+        CENTRAL DE GESTÃO DE OBRAS
+    </div>
+
+    <h2>Santuário São Judas Tadeu</h2>
+
+    <small>Diocese de Sete Lagoas – MG</small>
+
 </header>
 
 <main>
-<a class="back" href="index.html">← Voltar ao Menu Principal</a>
 
-<h2 class="section-title">Programação Semanal de Pagamentos</h2>
-<p class="description">
-Consulta dos compromissos financeiros por semana, considerando
-a data de vencimento das notas fiscais, inclusive aquelas já pagas.
-</p>
-<p class="update" id="atualizacao">Última atualização: —</p>
+    <a class="back" href="index.html">
+        ← Voltar ao Menu Principal
+    </a>
 
-<h2 class="group-title">Período de Consulta</h2>
+    <h1 class="section-title">
+        Programação Semanal de Pagamentos
+    </h1>
 
-<div class="week-nav">
-<button id="anterior" type="button">← Semana anterior</button>
-<div class="week-label" id="periodo">Carregando período...</div>
-<button id="proxima" type="button">Próxima semana →</button>
-<button id="atual" class="primary" type="button">Semana atual</button>
-</div>
+    <p class="description">
+        Consulta dos compromissos financeiros por semana,
+        considerando a data de vencimento das notas fiscais,
+        inclusive aquelas já pagas.
+    </p>
 
-<div class="cards">
-<div class="card">
-<div class="label">Total Programado</div>
-<div class="value" id="total">—</div>
-</div>
-<div class="card">
-<div class="label">Total Pago</div>
-<div class="value" id="pago">—</div>
-</div>
-<div class="card">
-<div class="label">Total Pendente</div>
-<div class="value" id="pendente">—</div>
-</div>
-<div class="card">
-<div class="label">Valores Vencidos</div>
-<div class="value" id="vencido">—</div>
-</div>
-<div class="card">
-<div class="label">Pagamentos Programados</div>
-<div class="value" id="quantidade">—</div>
-</div>
-<div class="card">
-<div class="label">Pagamentos Realizados</div>
-<div class="value" id="realizados">—</div>
-</div>
-</div>
+    <p class="update" id="atualizacao">
+        Última atualização: —
+    </p>
 
-<h2 class="group-title">Pagamentos da Semana</h2>
+    <!-- PERÍODO DE CONSULTA -->
 
-<div class="filters">
-<select id="filtro_centro" aria-label="Centro de custo">
-<option value="">Todos os centros de custo</option>
-</select>
-<select id="filtro_situacao" aria-label="Situação">
-<option value="">Todas as situações</option>
-<option value="Pago">Pagos</option>
-<option value="A vencer">A vencer</option>
-<option value="Vencido">Vencidos</option>
-</select>
-</div>
+    <h2 class="group-title">
+        Período de Consulta
+    </h2>
 
-<p class="description" id="contador"></p>
-<div id="agenda"><div class="empty">Carregando programação...</div></div>
+    <div class="week-nav">
 
-<p class="note">
-A programação considera a data de vencimento registrada na planilha.
-Pagamentos realizados permanecem visíveis na semana do vencimento original.
-Notas sem data de vencimento não entram na programação semanal.
-Os dados refletem a última sincronização do sistema.
-</p>
+        <button id="anterior" type="button">
+            ← Semana anterior
+        </button>
+
+        <div class="week-label" id="periodo">
+            Carregando período...
+        </div>
+
+        <button id="proxima" type="button">
+            Próxima semana →
+        </button>
+
+        <button
+            id="atual"
+            class="primary"
+            type="button"
+        >
+            Semana atual
+        </button>
+
+    </div>
+
+    <!-- INDICADORES SEMANAIS -->
+
+    <div class="cards">
+
+        <div class="card">
+            <div class="label">Total Programado</div>
+            <div class="value" id="total">—</div>
+        </div>
+
+        <div class="card">
+            <div class="label">Total Pago</div>
+            <div class="value" id="pago">—</div>
+        </div>
+
+        <div class="card">
+            <div class="label">Total Pendente</div>
+            <div class="value" id="pendente">—</div>
+        </div>
+
+        <div class="card">
+            <div class="label">Valores Vencidos</div>
+            <div class="value" id="vencido">—</div>
+        </div>
+
+        <div class="card">
+            <div class="label">Pagamentos Programados</div>
+            <div class="value" id="quantidade">—</div>
+        </div>
+
+        <div class="card">
+            <div class="label">Pagamentos Realizados</div>
+            <div class="value" id="realizados">—</div>
+        </div>
+
+    </div>
+
+    <!-- PAGAMENTOS DA SEMANA -->
+
+    <h2 class="group-title">
+        Pagamentos da Semana
+    </h2>
+
+    <div class="filters">
+
+        <select
+            id="filtro_centro"
+            aria-label="Centro de custo"
+        >
+            <option value="">
+                Todos os centros de custo
+            </option>
+        </select>
+
+        <select
+            id="filtro_situacao"
+            aria-label="Situação"
+        >
+            <option value="">
+                Todas as situações
+            </option>
+
+            <option value="Pago">
+                Pagos
+            </option>
+
+            <option value="A vencer">
+                A vencer
+            </option>
+
+            <option value="Vencido">
+                Vencidos
+            </option>
+        </select>
+
+    </div>
+
+    <p class="description" id="contador"></p>
+
+    <div id="agenda">
+        <div class="empty">
+            Carregando programação...
+        </div>
+    </div>
+
+    <p class="note">
+        A programação considera a data de vencimento
+        registrada na planilha. Pagamentos realizados
+        permanecem visíveis na semana do vencimento original.
+        Notas sem data de vencimento não entram na programação
+        semanal. Os dados refletem a última sincronização
+        do sistema.
+    </p>
+
 </main>
 
-<footer>Desenvolvido por CADPLAN | Gerenciamento e Construções</footer>
+<footer>
+    Desenvolvido por CADPLAN | Gerenciamento e Construções
+</footer>
 
 <script>
-const moeda = new Intl.NumberFormat("pt-BR",{
-  style:"currency",currency:"BRL"
+
+// CONFIGURAÇÕES
+
+const moeda = new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL"
 });
+
 const el = id => document.getElementById(id);
-const num = v => typeof v === "number" && Number.isFinite(v) ? v : 0;
+
+const num = valor =>
+    typeof valor === "number" && Number.isFinite(valor)
+        ? valor
+        : 0;
 
 let notas = [];
+
 let inicioSemana = segundaFeira(new Date());
 
-function criar(tag,classe,texto){
-  const e = document.createElement(tag);
-  if(classe) e.className = classe;
-  if(texto !== undefined) e.textContent = texto;
-  return e;
-}
+// CRIAÇÃO DE ELEMENTOS
 
-function dataLocal(valor){
-  if(typeof valor !== "string") return null;
-  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(valor);
-  if(!m) return null;
-  const d = new Date(+m[1],+m[2]-1,+m[3]);
-  if(d.getFullYear()!==+m[1] ||
-     d.getMonth()!==+m[2]-1 ||
-     d.getDate()!==+m[3]) return null;
-  return d;
-}
+function criar(tag, classe, texto) {
 
-function adicionarDias(data,dias){
-  const d = new Date(data);
-  d.setDate(d.getDate()+dias);
-  return d;
-}
+    const item = document.createElement(tag);
 
-function segundaFeira(data){
-  const d = new Date(data.getFullYear(),data.getMonth(),data.getDate());
-  const dia = (d.getDay()+6)%7;
-  d.setDate(d.getDate()-dia);
-  return d;
-}
-
-function formatarData(data){
-  return data.toLocaleDateString("pt-BR");
-}
-
-function statusNota(n){
-  if(n.pago===true || n.situacao==="Pago") return "Pago";
-  const vencimento = dataLocal(n.vencimento);
-  if(!vencimento) return "A vencer";
-  const hoje = new Date();
-  hoje.setHours(0,0,0,0);
-  return vencimento < hoje ? "Vencido" : "A vencer";
-}
-
-function preencherCentros(){
-  const nomes = [...new Set(
-    notas.map(n=>n.centro_custo).filter(Boolean)
-  )].sort((a,b)=>a.localeCompare(b,"pt-BR"));
-
-  nomes.forEach(nome=>{
-    const opt = document.createElement("option");
-    opt.value = nome;
-    opt.textContent = nome;
-    el("filtro_centro").appendChild(opt);
-  });
-}
-
-function renderizar(){
-  const fim = adicionarDias(inicioSemana,6);
-
-  el("periodo").textContent =
-    formatarData(inicioSemana)+" a "+formatarData(fim);
-
-  const centro = el("filtro_centro").value;
-  const filtroStatus = el("filtro_situacao").value;
-
-  const semana = notas.filter(n=>{
-    const data = dataLocal(n.vencimento);
-    return data && data>=inicioSemana && data<=fim;
-  });
-
-  const filtradas = semana.filter(n=>
-    (!centro || n.centro_custo===centro) &&
-    (!filtroStatus || statusNota(n)===filtroStatus)
-  );
-
-  const somar = lista => lista.reduce((s,n)=>s+num(n.valor),0);
-  const pagas = filtradas.filter(n=>statusNota(n)==="Pago");
-  const vencidas = filtradas.filter(n=>statusNota(n)==="Vencido");
-
-  el("total").textContent = moeda.format(somar(filtradas));
-  el("pago").textContent = moeda.format(somar(pagas));
-  el("pendente").textContent = moeda.format(
-    somar(filtradas)-somar(pagas)
-  );
-  el("vencido").textContent = moeda.format(somar(vencidas));
-  el("quantidade").textContent = filtradas.length;
-  el("realizados").textContent = pagas.length;
-
-  el("contador").textContent =
-    filtradas.length+" pagamento(s) encontrado(s) no período.";
-
-  const agenda = el("agenda");
-  agenda.replaceChildren();
-
-  for(let i=0;i<7;i++){
-    const dia = adicionarDias(inicioSemana,i);
-    const chave = [
-      dia.getFullYear(),
-      String(dia.getMonth()+1).padStart(2,"0"),
-      String(dia.getDate()).padStart(2,"0")
-    ].join("-");
-
-    const itens = filtradas.filter(n=>n.vencimento===chave);
-
-    const secao = criar("section","day");
-    const cabecalho = criar("div","day-header");
-
-    const titulo = dia.toLocaleDateString("pt-BR",{
-      weekday:"long",day:"2-digit",month:"2-digit"
-    });
-
-    cabecalho.append(
-      criar("span","",titulo.charAt(0).toUpperCase()+titulo.slice(1)),
-      criar("span","day-total",moeda.format(somar(itens)))
-    );
-    secao.appendChild(cabecalho);
-
-    const conteudo = criar("div","day-content");
-
-    if(!itens.length){
-      conteudo.appendChild(
-        criar("div","empty","Nenhum pagamento programado.")
-      );
+    if (classe) {
+        item.className = classe;
     }
 
-    itens.forEach(n=>{
-      const status = statusNota(n);
-      const classe = {
-        "Pago":"pago",
-        "Vencido":"vencido",
-        "A vencer":"avencer"
-      }[status];
+    if (texto !== undefined) {
+        item.textContent = texto;
+    }
 
-      const artigo = criar("article","entry");
-      const topo = criar("div","entry-top");
-      const identificacao = criar("div","");
+    return item;
+}
 
-      identificacao.append(
-        criar("div","entry-name",n.empresa || "Fornecedor não informado"),
-        criar("div","entry-process",
-          "Contrato: "+(n.processo || "Não informado")+
-          " | NF: "+(n.numero_nf || "Não informada")
+// TRATAMENTO DE DATAS
+
+function dataLocal(valor) {
+
+    if (typeof valor !== "string") {
+        return null;
+    }
+
+    const partes = /^(\d{4})-(\d{2})-(\d{2})$/.exec(valor);
+
+    if (!partes) {
+        return null;
+    }
+
+    const data = new Date(
+        +partes[1],
+        +partes[2] - 1,
+        +partes[3]
+    );
+
+    if (
+        data.getFullYear() !== +partes[1] ||
+        data.getMonth() !== +partes[2] - 1 ||
+        data.getDate() !== +partes[3]
+    ) {
+        return null;
+    }
+
+    return data;
+}
+
+// ADICIONAR DIAS
+
+function adicionarDias(data, dias) {
+
+    const novaData = new Date(data);
+
+    novaData.setDate(
+        novaData.getDate() + dias
+    );
+
+    return novaData;
+}
+
+// IDENTIFICAR SEGUNDA-FEIRA
+
+function segundaFeira(data) {
+
+    const novaData = new Date(
+        data.getFullYear(),
+        data.getMonth(),
+        data.getDate()
+    );
+
+    const dia = (
+        novaData.getDay() + 6
+    ) % 7;
+
+    novaData.setDate(
+        novaData.getDate() - dia
+    );
+
+    return novaData;
+}
+
+// FORMATAR DATA
+
+function formatarData(data) {
+
+    return data.toLocaleDateString("pt-BR");
+}
+
+// SITUAÇÃO DA NOTA
+
+function statusNota(nota) {
+
+    if (
+        nota.pago === true ||
+        nota.situacao === "Pago"
+    ) {
+        return "Pago";
+    }
+
+    const vencimento = dataLocal(
+        nota.vencimento
+    );
+
+    if (!vencimento) {
+        return "A vencer";
+    }
+
+    const hoje = new Date();
+
+    hoje.setHours(0, 0, 0, 0);
+
+    return vencimento < hoje
+        ? "Vencido"
+        : "A vencer";
+}
+
+// PREENCHER CENTROS DE CUSTO
+
+function preencherCentros() {
+
+    const nomes = [
+        ...new Set(
+            notas
+                .map(nota => nota.centro_custo)
+                .filter(Boolean)
         )
-      );
+    ].sort(
+        (a, b) => a.localeCompare(b, "pt-BR")
+    );
 
-      topo.append(
-        identificacao,
-        criar("span","status "+classe,status)
-      );
+    nomes.forEach(nome => {
 
-      const servico = criar("div","entry-service",
-        n.servico || "Serviço não informado"
-      );
+        const opcao = document.createElement(
+            "option"
+        );
 
-      const meta = criar("div","entry-meta",
-        "Centro de custo: "+(n.centro_custo || "Não informado")+
-        " | Atividade: "+(n.atividade || "Não informada")
-      );
+        opcao.value = nome;
+        opcao.textContent = nome;
 
-      const rodape = criar("div","entry-bottom");
-      rodape.appendChild(
-        criar("div","entry-value",moeda.format(num(n.valor)))
-      );
+        el("filtro_centro").appendChild(opcao);
 
-      if(status==="Pago" && n.data_pagamento){
-        const dataPagamento = dataLocal(n.data_pagamento);
-        if(dataPagamento){
-          rodape.appendChild(
-            criar("div","entry-meta",
-              "Pago em "+formatarData(dataPagamento)
-            )
-          );
-        }
-      }
+    });
+}
 
-      artigo.append(topo,servico,meta,rodape);
-      conteudo.appendChild(artigo);
+// RENDERIZAÇÃO DA PROGRAMAÇÃO
+
+function renderizar() {
+
+    const fim = adicionarDias(
+        inicioSemana,
+        6
+    );
+
+    el("periodo").textContent =
+        formatarData(inicioSemana) +
+        " a " +
+        formatarData(fim);
+
+    const centro = el("filtro_centro").value;
+
+    const filtroStatus = el(
+        "filtro_situacao"
+    ).value;
+
+    // NOTAS DA SEMANA
+
+    const semana = notas.filter(nota => {
+
+        const data = dataLocal(
+            nota.vencimento
+        );
+
+        return data &&
+            data >= inicioSemana &&
+            data <= fim;
     });
 
-    secao.appendChild(conteudo);
-    agenda.appendChild(secao);
-  }
-}
+    // FILTROS
 
-async function carregar(){
-  try{
-    const resposta = await fetch(
-      "indicadores.json?t="+Date.now(),
-      {cache:"no-store"}
+    const filtradas = semana.filter(nota =>
+        (
+            !centro ||
+            nota.centro_custo === centro
+        ) &&
+        (
+            !filtroStatus ||
+            statusNota(nota) === filtroStatus
+        )
     );
 
-    if(!resposta.ok) throw new Error("Falha ao carregar JSON.");
+    // TOTAIS
 
-    const dados = await resposta.json();
-    if(!Array.isArray(dados.notas_fiscais)){
-      throw new Error("Notas fiscais não encontradas.");
-    }
+    const somar = lista =>
+        lista.reduce(
+            (total, nota) =>
+                total + num(nota.valor),
+            0
+        );
 
-    notas = dados.notas_fiscais;
-
-    if(dados.atualizado_em){
-      const data = new Date(dados.atualizado_em);
-      if(!Number.isNaN(data.getTime())){
-        el("atualizacao").textContent =
-          "Última atualização: "+data.toLocaleString("pt-BR");
-      }
-    }
-
-    preencherCentros();
-    renderizar();
-
-  }catch(erro){
-    console.error(erro);
-    el("agenda").replaceChildren(
-      criar("div","empty",
-        "Não foi possível carregar a programação. Verifique o indicadores.json.")
+    const pagas = filtradas.filter(
+        nota => statusNota(nota) === "Pago"
     );
-  }
+
+    const vencidas = filtradas.filter(
+        nota => statusNota(nota) === "Vencido"
+    );
+
+    el("total").textContent =
+        moeda.format(somar(filtradas));
+
+    el("pago").textContent =
+        moeda.format(somar(pagas));
+
+    el("pendente").textContent =
+        moeda.format(
+            somar(filtradas) -
+            somar(pagas)
+        );
+
+    el("vencido").textContent =
+        moeda.format(somar(vencidas));
+
+    el("quantidade").textContent =
+        filtradas.length;
+
+    el("realizados").textContent =
+        pagas.length;
+
+    el("contador").textContent =
+        filtradas.length +
+        " pagamento(s) encontrado(s) no período.";
+
+    // LIMPAR AGENDA
+
+    const agenda = el("agenda");
+
+    agenda.replaceChildren();
+
+    // SETE DIAS DA SEMANA
+
+    for (let i = 0; i < 7; i++) {
+
+        const dia = adicionarDias(
+            inicioSemana,
+            i
+        );
+
+        const chave = [
+            dia.getFullYear(),
+            String(
+                dia.getMonth() + 1
+            ).padStart(2, "0"),
+            String(
+                dia.getDate()
+            ).padStart(2, "0")
+        ].join("-");
+
+        const itens = filtradas.filter(
+            nota => nota.vencimento === chave
+        );
+
+        const secao = criar(
+            "section",
+            "day"
+        );
+
+        const cabecalho = criar(
+            "div",
+            "day-header"
+        );
+
+        const titulo = dia.toLocaleDateString(
+            "pt-BR",
+            {
+                weekday: "long",
+                day: "2-digit",
+                month: "2-digit"
+            }
+        );
+
+        cabecalho.append(
+            criar(
+                "span",
+                "",
+                titulo.charAt(0).toUpperCase() +
+                titulo.slice(1)
+            ),
+            criar(
+                "span",
+                "day-total",
+                moeda.format(somar(itens))
+            )
+        );
+
+        secao.appendChild(cabecalho);
+
+        const conteudo = criar(
+            "div",
+            "day-content"
+        );
+
+        if (!itens.length) {
+
+            conteudo.appendChild(
+                criar(
+                    "div",
+                    "empty",
+                    "Nenhum pagamento programado."
+                )
+            );
+        }
+
+        // PAGAMENTOS DO DIA
+
+        itens.forEach(nota => {
+
+            const status = statusNota(nota);
+
+            const classe = {
+                "Pago": "pago",
+                "Vencido": "vencido",
+                "A vencer": "avencer"
+            }[status];
+
+            const artigo = criar(
+                "article",
+                "entry"
+            );
+
+            const topo = criar(
+                "div",
+                "entry-top"
+            );
+
+            const identificacao = criar(
+                "div",
+                ""
+            );
+
+            identificacao.append(
+                criar(
+                    "div",
+                    "entry-name",
+                    nota.empresa ||
+                    "Fornecedor não informado"
+                ),
+                criar(
+                    "div",
+                    "entry-process",
+                    "Contrato: " +
+                    (
+                        nota.processo ||
+                        "Não informado"
+                    ) +
+                    " | NF: " +
+                    (
+                        nota.numero_nf ||
+                        "Não informada"
+                    )
+                )
+            );
+
+            topo.append(
+                identificacao,
+                criar(
+                    "span",
+                    "status " + classe,
+                    status
+                )
+            );
+
+            // SERVIÇO
+
+            const servico = criar(
+                "div",
+                "entry-service",
+                nota.servico ||
+                "Serviço não informado"
+            );
+
+            // CENTRO DE CUSTO E ATIVIDADE
+
+            const meta = criar(
+                "div",
+                "entry-meta",
+                "Centro de custo: " +
+                (
+                    nota.centro_custo ||
+                    "Não informado"
+                ) +
+                " | Atividade: " +
+                (
+                    nota.atividade ||
+                    "Não informada"
+                )
+            );
+
+            // VALOR E DATA DE PAGAMENTO
+
+            const rodape = criar(
+                "div",
+                "entry-bottom"
+            );
+
+            rodape.appendChild(
+                criar(
+                    "div",
+                    "entry-value",
+                    moeda.format(
+                        num(nota.valor)
+                    )
+                )
+            );
+
+            if (
+                status === "Pago" &&
+                nota.data_pagamento
+            ) {
+
+                const dataPagamento = dataLocal(
+                    nota.data_pagamento
+                );
+
+                if (dataPagamento) {
+
+                    rodape.appendChild(
+                        criar(
+                            "div",
+                            "entry-meta",
+                            "Pago em " +
+                            formatarData(dataPagamento)
+                        )
+                    );
+                }
+            }
+
+            // MONTAGEM DO PAGAMENTO
+
+            artigo.append(
+                topo,
+                servico,
+                meta,
+                rodape
+            );
+
+            conteudo.appendChild(artigo);
+
+        });
+
+        secao.appendChild(conteudo);
+
+        agenda.appendChild(secao);
+    }
 }
 
-el("anterior").addEventListener("click",()=>{
-  inicioSemana = adicionarDias(inicioSemana,-7);
-  renderizar();
-});
-el("proxima").addEventListener("click",()=>{
-  inicioSemana = adicionarDias(inicioSemana,7);
-  renderizar();
-});
-el("atual").addEventListener("click",()=>{
-  inicioSemana = segundaFeira(new Date());
-  renderizar();
-});
-el("filtro_centro").addEventListener("change",renderizar);
-el("filtro_situacao").addEventListener("change",renderizar);
+// CARREGAMENTO DOS DADOS
+
+async function carregar() {
+
+    try {
+
+        const resposta = await fetch(
+            "indicadores.json?t=" + Date.now(),
+            { cache: "no-store" }
+        );
+
+        if (!resposta.ok) {
+            throw new Error(
+                "Falha ao carregar JSON."
+            );
+        }
+
+        const dados = await resposta.json();
+
+        if (!Array.isArray(dados.notas_fiscais)) {
+            throw new Error(
+                "Notas fiscais não encontradas."
+            );
+        }
+
+        notas = dados.notas_fiscais;
+
+        // DATA DA ÚLTIMA ATUALIZAÇÃO
+
+        if (dados.atualizado_em) {
+
+            const data = new Date(
+                dados.atualizado_em
+            );
+
+            if (!Number.isNaN(data.getTime())) {
+
+                el("atualizacao").textContent =
+                    "Última atualização: " +
+                    data.toLocaleString("pt-BR");
+            }
+        }
+
+        preencherCentros();
+
+        renderizar();
+
+    } catch (erro) {
+
+        console.error(
+            "Erro ao carregar programação:",
+            erro
+        );
+
+        el("agenda").replaceChildren(
+            criar(
+                "div",
+                "empty",
+                "Não foi possível carregar a programação. " +
+                "Verifique o indicadores.json."
+            )
+        );
+    }
+}
+
+// NAVEGAÇÃO ENTRE SEMANAS
+
+el("anterior").addEventListener(
+    "click",
+    () => {
+        inicioSemana = adicionarDias(
+            inicioSemana,
+            -7
+        );
+
+        renderizar();
+    }
+);
+
+el("proxima").addEventListener(
+    "click",
+    () => {
+        inicioSemana = adicionarDias(
+            inicioSemana,
+            7
+        );
+
+        renderizar();
+    }
+);
+
+el("atual").addEventListener(
+    "click",
+    () => {
+        inicioSemana = segundaFeira(
+            new Date()
+        );
+
+        renderizar();
+    }
+);
+
+// FILTROS
+
+el("filtro_centro").addEventListener(
+    "change",
+    renderizar
+);
+
+el("filtro_situacao").addEventListener(
+    "change",
+    renderizar
+);
+
+// INICIALIZAÇÃO
 
 carregar();
+
 </script>
+
 </body>
 </html>
