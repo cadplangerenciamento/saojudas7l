@@ -1,0 +1,397 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#563938">
+<title>CADPLAN | Notas Fiscais e Pagamentos</title>
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f7f5f3;color:#333}
+header{background:#563938;color:white;text-align:center;padding:35px 20px}
+header h1{margin:0 0 8px;font-size:32px;letter-spacing:2px}
+header .subtitle{color:#ffcb94;font-size:13px;letter-spacing:1px}
+header h2{font-size:19px;margin:20px 0 5px}
+header small{opacity:.85}
+main{max-width:1100px;margin:30px auto;padding:0 18px}
+.back{display:inline-block;color:#765454;text-decoration:none;font-weight:bold;margin-bottom:25px}
+.section-title{font-size:23px;color:#563938;margin:0 0 8px}
+.description{font-size:14px;color:#777;line-height:1.6}
+.update{font-size:12px;color:#777;margin:15px 0 25px}
+.group-title{font-size:19px;color:#563938;margin:30px 0 16px;padding-bottom:10px;border-bottom:2px solid #8b5e5a}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+.card,.filters,.nota{background:white;border:1px solid #e7dedb;border-radius:12px;box-shadow:0 3px 12px #0000000a}
+.card{padding:22px}
+.label{font-size:14px;color:#765454;margin-bottom:10px}
+.value{font-size:25px;font-weight:bold;color:#563938;overflow-wrap:anywhere}
+.filters{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px;padding:18px;margin-bottom:18px}
+.filters input,.filters select{width:100%;min-width:0;padding:12px;border:1px solid #ddd2cd;border-radius:8px;background:white;color:#333;font-size:14px}
+.nota{padding:22px;margin-bottom:16px}
+.nota-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.nota-numero{font-size:17px;font-weight:bold;color:#563938;margin-bottom:7px}
+.processo{font-size:12px;color:#888}
+.empresa{font-size:16px;font-weight:bold;margin:16px 0 6px;color:#563938}
+.servico{font-size:14px;color:#555;line-height:1.5}
+.meta{font-size:12px;color:#777;line-height:1.7;margin:12px 0 18px}
+.status{display:inline-block;font-size:12px;font-weight:bold;padding:7px 12px;border-radius:20px;white-space:nowrap}
+.pago{background:#e5f2e7;color:#27753b}
+.vencido{background:#fbe6e5;color:#a12b27}
+.avencer{background:#fff1d9;color:#95620b}
+.pendente{background:#eeeeee;color:#666}
+.detalhes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.detalhe{background:#faf8f7;padding:14px;border-radius:8px;min-width:0}
+.detalhe span{display:block;font-size:12px;color:#777;margin-bottom:8px}
+.detalhe strong{font-size:15px;color:#563938;overflow-wrap:anywhere}
+.empty{padding:25px;background:white;border:1px solid #e7dedb;border-radius:12px;text-align:center;color:#777;line-height:1.6}
+.note{font-size:12px;color:#777;line-height:1.6;margin-top:20px}
+footer{text-align:center;padding:30px 15px;font-size:12px;color:#777}
+@media(max-width:750px){
+.cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+.filters{grid-template-columns:1fr}
+}
+@media(max-width:450px){
+.cards,.detalhes{grid-template-columns:1fr}
+.nota-head{flex-wrap:wrap}
+.value{font-size:23px}
+}
+</style>
+</head>
+
+<body>
+<header>
+<h1>CADPLAN</h1>
+<div class="subtitle">CENTRAL DE GESTÃO DE OBRAS</div>
+<h2>Santuário São Judas Tadeu</h2>
+<small>Sete Lagoas – Minas Gerais</small>
+</header>
+
+<main>
+<a class="back" href="index.html">← Voltar ao Menu Principal</a>
+
+<h2 class="section-title">Notas Fiscais e Pagamentos</h2>
+<p class="description">
+Acompanhamento dos documentos fiscais vinculados aos contratos,
+com valores, vencimentos e situação dos pagamentos.
+</p>
+<p class="update" id="atualizacao">Última atualização: —</p>
+
+<h2 class="group-title">Resumo Financeiro</h2>
+
+<div class="cards">
+<div class="card">
+<div class="label">Notas Fiscais</div>
+<div class="value" id="total_notas">—</div>
+</div>
+<div class="card">
+<div class="label">Total Faturado</div>
+<div class="value" id="total_faturado">—</div>
+</div>
+<div class="card">
+<div class="label">Total Pago</div>
+<div class="value" id="total_pago">—</div>
+</div>
+<div class="card">
+<div class="label">Saldo a Pagar</div>
+<div class="value" id="saldo_pagar">—</div>
+</div>
+<div class="card">
+<div class="label">Valores Vencidos</div>
+<div class="value" id="total_vencido">—</div>
+</div>
+<div class="card">
+<div class="label">Valores a Vencer</div>
+<div class="value" id="total_a_vencer">—</div>
+</div>
+</div>
+
+<h2 class="group-title">Consulta de Notas Fiscais</h2>
+
+<div class="filters">
+<input type="search" id="busca"
+placeholder="Pesquisar nota, fornecedor ou contrato..."
+aria-label="Pesquisar notas fiscais">
+
+<select id="filtro_centro" aria-label="Centro de custo">
+<option value="">Todos os centros de custo</option>
+</select>
+
+<select id="filtro_situacao" aria-label="Situação">
+<option value="">Todas as situações</option>
+<option value="Pago">Pagas</option>
+<option value="Vencido">Vencidas</option>
+<option value="A vencer">A vencer</option>
+<option value="Pendente">Pendentes sem vencimento</option>
+</select>
+</div>
+
+<p class="description" id="contador"></p>
+<div id="lista">
+<div class="empty">Carregando notas fiscais...</div>
+</div>
+
+<p class="note">
+A situação de vencimento é calculada a partir da data atual.
+Notas registradas como pagas não são classificadas como vencidas.
+Valores e datas refletem a última sincronização da planilha.
+As informações são apresentadas para acompanhamento financeiro
+e transparência administrativa.
+</p>
+</main>
+
+<footer>
+Desenvolvido por CADPLAN | Gerenciamento e Construções
+</footer>
+
+<script>
+const moeda = new Intl.NumberFormat("pt-BR",{
+  style:"currency",
+  currency:"BRL"
+});
+
+const el = id => document.getElementById(id);
+const num = v => typeof v === "number" && Number.isFinite(v) ? v : 0;
+
+let notas = [];
+
+function elemento(tag,classe,texto){
+  const e = document.createElement(tag);
+  if(classe) e.className = classe;
+  if(texto !== undefined) e.textContent = texto;
+  return e;
+}
+
+function dataLocal(valor){
+  if(typeof valor !== "string") return null;
+
+  const partes = /^(\d{4})-(\d{2})-(\d{2})$/.exec(valor);
+  if(!partes) return null;
+
+  const ano = Number(partes[1]);
+  const mes = Number(partes[2]);
+  const dia = Number(partes[3]);
+
+  const data = new Date(ano,mes-1,dia);
+
+  if(data.getFullYear() !== ano ||
+     data.getMonth() !== mes-1 ||
+     data.getDate() !== dia){
+    return null;
+  }
+
+  return data;
+}
+
+function formatarData(valor){
+  const data = dataLocal(valor);
+  return data ? data.toLocaleDateString("pt-BR") : "Não informado";
+}
+
+function situacao(nota){
+  if(nota.pago === true || nota.situacao === "Pago"){
+    return "Pago";
+  }
+
+  const vencimento = dataLocal(nota.vencimento);
+
+  if(!vencimento) return "Pendente";
+
+  const hoje = new Date();
+  hoje.setHours(0,0,0,0);
+
+  return vencimento < hoje ? "Vencido" : "A vencer";
+}
+
+function detalhe(container,titulo,valor){
+  const caixa = elemento("div","detalhe");
+  caixa.append(
+    elemento("span","",titulo),
+    elemento("strong","",valor)
+  );
+  container.appendChild(caixa);
+}
+
+function preencherCentros(){
+  const nomes = [...new Set(
+    notas.map(n=>n.centro_custo).filter(Boolean)
+  )].sort((a,b)=>a.localeCompare(b,"pt-BR"));
+
+  nomes.forEach(nome=>{
+    const opcao = document.createElement("option");
+    opcao.value = nome;
+    opcao.textContent = nome;
+    el("filtro_centro").appendChild(opcao);
+  });
+}
+
+function renderizar(){
+  const busca = el("busca").value.trim()
+    .toLocaleLowerCase("pt-BR");
+  const centro = el("filtro_centro").value;
+  const filtroSituacao = el("filtro_situacao").value;
+
+  const filtradas = notas.filter(n=>{
+    const texto = [
+      n.numero_nf,n.empresa,n.processo,n.servico
+    ].join(" ").toLocaleLowerCase("pt-BR");
+
+    return texto.includes(busca)
+      && (!centro || n.centro_custo === centro)
+      && (!filtroSituacao || situacao(n) === filtroSituacao);
+  });
+
+  el("contador").textContent =
+    `${filtradas.length} nota(s) fiscal(is) encontrada(s).`;
+
+  const lista = el("lista");
+  lista.replaceChildren();
+
+  if(!filtradas.length){
+    lista.appendChild(
+      elemento("div","empty","Nenhuma nota fiscal encontrada.")
+    );
+    return;
+  }
+
+  const ordem = {"Vencido":0,"A vencer":1,"Pendente":2,"Pago":3};
+
+  filtradas.sort((a,b)=>{
+    const diferenca = ordem[situacao(a)] - ordem[situacao(b)];
+    if(diferenca !== 0) return diferenca;
+
+    const dataA = dataLocal(a.vencimento);
+    const dataB = dataLocal(b.vencimento);
+
+    return (dataA ? dataA.getTime() : Infinity)
+      - (dataB ? dataB.getTime() : Infinity);
+  });
+
+  filtradas.forEach(n=>{
+    const status = situacao(n);
+    const classe = {
+      "Pago":"pago",
+      "Vencido":"vencido",
+      "A vencer":"avencer",
+      "Pendente":"pendente"
+    }[status];
+
+    const artigo = elemento("article","nota");
+    const cabecalho = elemento("div","nota-head");
+    const identificacao = elemento("div","");
+
+    identificacao.append(
+      elemento(
+        "div","nota-numero",
+        n.numero_nf ? "Nota Fiscal " + n.numero_nf : "Nota Fiscal sem número"
+      ),
+      elemento("div","process","Contrato: " + (n.processo || "Não informado"))
+    );
+
+    cabecalho.append(
+      identificacao,
+      elemento("span","status " + classe,status)
+    );
+
+    const empresa = elemento(
+      "div","empresa",n.empresa || "Fornecedor não informado"
+    );
+
+    const servico = elemento(
+      "div","servico",n.servico || "Serviço não informado"
+    );
+
+    const meta = elemento(
+      "div","meta",
+      "Centro de custo: " + (n.centro_custo || "Não informado")
+      + " | Atividade: " + (n.atividade || "Não informada")
+    );
+
+    const detalhes = elemento("div","detalhes");
+
+    detalhe(detalhes,"Valor da nota",moeda.format(num(n.valor)));
+    detalhe(detalhes,"Vencimento",formatarData(n.vencimento));
+    detalhe(
+      detalhes,"Data do pagamento",
+      n.pago ? formatarData(n.data_pagamento) : "Não pago"
+    );
+
+    artigo.append(cabecalho,empresa,servico,meta,detalhes);
+    lista.appendChild(artigo);
+  });
+}
+
+async function carregar(){
+  try{
+    const resposta = await fetch(
+      "indicadores.json?t=" + Date.now(),
+      {cache:"no-store"}
+    );
+
+    if(!resposta.ok){
+      throw new Error("Não foi possível carregar o arquivo JSON.");
+    }
+
+    const dados = await resposta.json();
+
+    if(!Array.isArray(dados.notas_fiscais)){
+      throw new Error("Notas fiscais não encontradas no JSON.");
+    }
+
+    notas = dados.notas_fiscais;
+    const indicadores = dados.indicadores || {};
+
+    const totalNotas = notas.length;
+    const totalFaturado = notas.reduce(
+      (s,n)=>s+num(n.valor),0
+    );
+    const totalPago = notas.reduce(
+      (s,n)=>s+(situacao(n)==="Pago" ? num(n.valor) : 0),0
+    );
+    const totalVencido = notas.reduce(
+      (s,n)=>s+(situacao(n)==="Vencido" ? num(n.valor) : 0),0
+    );
+    const totalAVencer = notas.reduce(
+      (s,n)=>s+(situacao(n)==="A vencer" ? num(n.valor) : 0),0
+    );
+
+    el("total_notas").textContent = totalNotas;
+    el("total_faturado").textContent = moeda.format(totalFaturado);
+    el("total_pago").textContent = moeda.format(totalPago);
+    el("saldo_pagar").textContent = moeda.format(
+      totalFaturado-totalPago
+    );
+    el("total_vencido").textContent = moeda.format(totalVencido);
+    el("total_a_vencer").textContent = moeda.format(totalAVencer);
+
+    if(dados.atualizado_em){
+      const data = new Date(dados.atualizado_em);
+      if(!Number.isNaN(data.getTime())){
+        el("atualizacao").textContent =
+          "Última atualização: " + data.toLocaleString("pt-BR");
+      }
+    }
+
+    preencherCentros();
+    renderizar();
+
+  }catch(erro){
+    console.error(erro);
+
+    el("lista").replaceChildren(
+      elemento(
+        "div","empty",
+        "Não foi possível carregar as notas fiscais. Verifique a sincronização do indicadores.json."
+      )
+    );
+  }
+}
+
+el("busca").addEventListener("input",renderizar);
+el("filtro_centro").addEventListener("change",renderizar);
+el("filtro_situacao").addEventListener("change",renderizar);
+
+carregar();
+</script>
+</body>
+</html>
