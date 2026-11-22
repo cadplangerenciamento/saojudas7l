@@ -428,8 +428,6 @@ footer {
   </div>
 </div>
 
-<!-- NOVO GRAFICO DE PREVISAO -->
-
 <div class="chart-box">
   <h3>Previsão de Pagamentos</h3>
 
@@ -497,6 +495,37 @@ footer {
     <div class="value" id="atividades_contratadas">—</div>
   </div>
 </div>
+
+<!-- 5. INDICADORES GERENCIAIS -->
+
+<h2 class="group-title">5. Indicadores Gerenciais</h2>
+
+<div class="cards">
+  <div class="card">
+    <div class="label">Execução Contratual</div>
+    <div class="value" id="indicador_execucao_contratual">—</div>
+  </div>
+
+  <div class="card">
+    <div class="label">Execução Financeira Global</div>
+    <div class="value" id="indicador_execucao_financeira">—</div>
+  </div>
+
+  <div class="card">
+    <div class="label">Saldo Contratual Disponível</div>
+    <div class="value" id="indicador_saldo_contratual">—</div>
+  </div>
+
+  <div class="card">
+    <div class="label">Percentual do Faturado já Pago</div>
+    <div class="value" id="indicador_faturado_pago">—</div>
+  </div>
+</div>
+
+<p class="note">
+  Indicadores calculados a partir dos valores contratados,
+  faturados e pagos registrados na planilha.
+</p>
 
 <div class="chart-box">
   <h3>Acompanhamento Financeiro</h3>
@@ -619,6 +648,55 @@ async function carregarDados() {
       }
     });
 
+    // 5. INDICADORES GERENCIAIS
+
+    const totalContratado =
+      typeof indicadores.total_contratado === "number"
+        ? indicadores.total_contratado
+        : 0;
+
+    const totalPago =
+      typeof indicadores.total_pago === "number"
+        ? indicadores.total_pago
+        : 0;
+
+    const execucaoContratual =
+      typeof indicadores.percentual_faturado === "number"
+        ? indicadores.percentual_faturado * 100
+        : null;
+
+    const execucaoFinanceira =
+      totalContratado > 0
+        ? (totalPago / totalContratado) * 100
+        : null;
+
+    const faturadoPago =
+      typeof indicadores.percentual_pago === "number"
+        ? indicadores.percentual_pago * 100
+        : null;
+
+    const formatarPercentual = valor =>
+      typeof valor === "number" && Number.isFinite(valor)
+        ? valor.toLocaleString("pt-BR", {
+            minimumFractionDigits: 1,
+            maximumFractionDigits: 1
+          }) + "%"
+        : "—";
+
+    document.getElementById("indicador_execucao_contratual").textContent =
+      formatarPercentual(execucaoContratual);
+
+    document.getElementById("indicador_execucao_financeira").textContent =
+      formatarPercentual(execucaoFinanceira);
+
+    document.getElementById("indicador_saldo_contratual").textContent =
+      typeof indicadores.saldo_a_faturar === "number"
+        ? moeda.format(indicadores.saldo_a_faturar)
+        : "—";
+
+    document.getElementById("indicador_faturado_pago").textContent =
+      formatarPercentual(faturadoPago);
+
     // GRAFICO DE DISTRIBUICAO
 
     const valorPago =
@@ -659,7 +737,7 @@ async function carregarDados() {
     document.getElementById("valor_pendente_grafico").textContent =
       moeda.format(valorPendente);
 
-    // NOVO GRAFICO DE PREVISAO DE PAGAMENTOS
+    // GRAFICO DE PREVISAO DE PAGAMENTOS
 
     const previsoes = [
       {
