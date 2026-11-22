@@ -1,0 +1,283 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#563938">
+<title>CADPLAN | Atividades</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f7f5f3;color:#333}
+header{background:#563938;color:white;text-align:center;padding:32px 15px}
+header h1{margin:0 0 8px;font-size:32px;letter-spacing:2px}
+header p{color:#ffcb94;font-size:13px;margin:0}
+header h2{margin:20px 0 5px;font-size:19px}
+header small{opacity:.85}
+main{max-width:1000px;margin:30px auto;padding:0 18px}
+.back{display:inline-block;color:#765454;text-decoration:none;font-weight:bold;margin-bottom:25px}
+h2{color:#563938}
+.section-title{font-size:23px;margin:0 0 8px}
+.subtitle{color:#777;line-height:1.5;font-size:14px}
+.update{font-size:12px;color:#777;margin:15px 0 25px}
+.group-title{font-size:19px;margin:30px 0 16px;padding-bottom:10px;border-bottom:2px solid #8b5e5a}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}
+.card,.activity,.filters{background:white;border:1px solid #e7dedb;border-radius:12px;box-shadow:0 3px 12px #0000000a}
+.card{padding:22px}
+.label{color:#765454;font-size:14px;margin-bottom:10px}
+.value{font-size:27px;font-weight:bold;color:#563938}
+.filters{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:18px;margin-bottom:18px}
+.filters input,.filters select{width:100%;padding:12px;border:1px solid #ddd2cd;border-radius:8px;background:white;color:#333;font-size:14px}
+.activity{padding:20px;margin-bottom:14px}
+.activity-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.code{font-size:12px;color:#888}
+.name{font-size:16px;font-weight:bold;color:#563938;margin:6px 0 10px;line-height:1.4}
+.status{font-size:11px;padding:6px 10px;border-radius:20px;white-space:nowrap;font-weight:bold}
+.active{background:#e7f2e8;color:#2e7d32}
+.inactive{background:#f1eeee;color:#777}
+.meta{font-size:12px;color:#777;margin-bottom:15px;line-height:1.6}
+.values{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.detail{background:#faf8f7;border-radius:8px;padding:12px;min-width:0}
+.detail span{display:block;font-size:12px;color:#777;margin-bottom:7px}
+.detail strong{color:#563938;font-size:15px;overflow-wrap:anywhere}
+.progress-title{display:flex;justify-content:space-between;font-size:13px;color:#765454;margin:18px 0 8px}
+.progress-bg{background:#eee7e3;height:12px;border-radius:20px;overflow:hidden}
+.progress-fill{height:100%;background:#765454;border-radius:20px}
+.empty{padding:24px;background:white;border:1px solid #e7dedb;border-radius:12px;text-align:center;color:#777}
+footer{text-align:center;padding:30px 15px;color:#777;font-size:12px}
+@media(max-width:600px){
+.cards,.filters{grid-template-columns:1fr}
+.values{grid-template-columns:1fr}
+.value{font-size:25px}
+.activity-head{flex-wrap:wrap}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>CADPLAN</h1>
+<p>CENTRAL DE GESTÃO DE OBRAS</p>
+<h2>Santuário São Judas Tadeu</h2>
+<small>Sete Lagoas – Minas Gerais</small>
+</header>
+
+<main>
+<a class="back" href="index.html">← Voltar ao Menu Principal</a>
+<h2 class="section-title">Atividades</h2>
+<p class="subtitle">Consulta das atividades cadastradas e acompanhamento dos contratos e valores vinculados.</p>
+<p class="update" id="atualizacao">Última atualização: —</p>
+
+<h2 class="group-title">Resumo Geral</h2>
+<div class="cards">
+<div class="card"><div class="label">Atividades Cadastradas</div><div class="value" id="total_atividades">—</div></div>
+<div class="card"><div class="label">Atividades Contratadas</div><div class="value" id="ativas">—</div></div>
+<div class="card"><div class="label">Valor Contratado</div><div class="value" id="contratado">—</div></div>
+<div class="card"><div class="label">Valor Faturado</div><div class="value" id="faturado">—</div></div>
+<div class="card"><div class="label">Saldo a Faturar</div><div class="value" id="saldo">—</div></div>
+<div class="card"><div class="label">Contratos Vinculados</div><div class="value" id="contratos">—</div></div>
+</div>
+
+<h2 class="group-title">Consulta de Atividades</h2>
+<div class="filters">
+<input type="search" id="busca" placeholder="Pesquisar código ou atividade..." aria-label="Pesquisar atividades">
+<select id="filtro_centro" aria-label="Filtrar centro de custo">
+<option value="">Todos os centros de custo</option>
+</select>
+<select id="filtro_situacao" aria-label="Filtrar situação">
+<option value="">Todas as atividades</option>
+<option value="ativas">Com contratos</option>
+<option value="inativas">Sem contratos</option>
+</select>
+</div>
+
+<p class="subtitle" id="contador"></p>
+<div id="lista"><div class="empty">Carregando atividades...</div></div>
+</main>
+
+<footer>Desenvolvido por CADPLAN | Gerenciamento e Construções</footer>
+
+<script>
+const moeda = new Intl.NumberFormat("pt-BR", {
+  style:"currency",currency:"BRL"
+});
+let atividades = [];
+
+const el = id => document.getElementById(id);
+const num = v => typeof v === "number" && Number.isFinite(v) ? v : 0;
+
+function criar(tag, classe, texto) {
+  const e = document.createElement(tag);
+  if(classe) e.className = classe;
+  if(texto !== undefined) e.textContent = texto;
+  return e;
+}
+
+function adicionarValor(container, titulo, valor) {
+  const caixa = criar("div","detail");
+  caixa.append(
+    criar("span","",titulo),
+    criar("strong","",valor)
+  );
+  container.appendChild(caixa);
+}
+
+function renderizar() {
+  const busca = el("busca").value.trim().toLocaleLowerCase("pt-BR");
+  const centro = el("filtro_centro").value;
+  const situacao = el("filtro_situacao").value;
+
+  const filtradas = atividades.filter(a => {
+    const texto = `${a.codigo || ""} ${a.nome || ""}`.toLocaleLowerCase("pt-BR");
+    const centros = Array.isArray(a.centros_custo) ? a.centros_custo : [];
+    const ativo = num(a.quantidade_contratos) > 0;
+
+    return texto.includes(busca)
+      && (!centro || centros.includes(centro))
+      && (!situacao || (situacao === "ativas" ? ativo : !ativo));
+  });
+
+  el("contador").textContent =
+    `${filtradas.length} atividade(s) encontrada(s).`;
+
+  const lista = el("lista");
+  lista.replaceChildren();
+
+  if(!filtradas.length) {
+    lista.appendChild(criar("div","empty","Nenhuma atividade encontrada."));
+    return;
+  }
+
+  filtradas.forEach(a => {
+    const contratado = num(a.valor_contratado);
+    const faturado = num(a.valor_faturado);
+    const saldo = num(a.saldo_a_faturar);
+    const quantidade = num(a.quantidade_contratos);
+    const ativo = quantidade > 0;
+    const centros = Array.isArray(a.centros_custo) ? a.centros_custo : [];
+    const percentual = contratado > 0
+      ? faturado / contratado * 100
+      : 0;
+    const largura = Math.max(0,Math.min(100,percentual));
+
+    const artigo = criar("article","activity");
+    const cabecalho = criar("div","activity-head");
+    const identificacao = criar("div","");
+    identificacao.append(
+      criar("div","code",a.codigo || "Sem código"),
+      criar("div","name",a.nome || "Atividade sem nome")
+    );
+
+    const status = criar(
+      "span",
+      "status " + (ativo ? "active" : "inactive"),
+      ativo ? "Com contratos" : "Sem contratos"
+    );
+    cabecalho.append(identificacao,status);
+
+    const metadados = criar("div","meta");
+    metadados.textContent =
+      "Centro(s) de custo: " +
+      (centros.length ? centros.join(", ") : "Sem vinculação") +
+      " | " + quantidade + " contrato(s)";
+
+    const valores = criar("div","values");
+    adicionarValor(valores,"Valor contratado",moeda.format(contratado));
+    adicionarValor(valores,"Valor faturado",moeda.format(faturado));
+    adicionarValor(valores,"Saldo a faturar",moeda.format(saldo));
+
+    const titulo = criar("div","progress-title");
+    titulo.append(
+      criar("span","","Percentual faturado"),
+      criar("strong","",percentual.toLocaleString("pt-BR",{
+        minimumFractionDigits:1,maximumFractionDigits:1
+      }) + "%")
+    );
+
+    const fundo = criar("div","progress-bg");
+    const barra = criar("div","progress-fill");
+    barra.style.width = largura + "%";
+    fundo.appendChild(barra);
+
+    artigo.append(cabecalho,metadados,valores,titulo,fundo);
+    lista.appendChild(artigo);
+  });
+}
+
+async function carregar() {
+  try {
+    const resposta = await fetch(
+      "indicadores.json?t=" + Date.now(),
+      {cache:"no-store"}
+    );
+    if(!resposta.ok) throw new Error("Falha ao carregar indicadores.");
+
+    const dados = await resposta.json();
+    if(!Array.isArray(dados.atividades)) {
+      throw new Error("Atividades não encontradas no JSON.");
+    }
+
+    atividades = dados.atividades;
+
+    const soma = campo => atividades.reduce(
+      (total,a) => total + num(a[campo]),0
+    );
+
+    el("total_atividades").textContent = atividades.length;
+    el("ativas").textContent = atividades.filter(
+      a => num(a.quantidade_contratos) > 0
+    ).length;
+    el("contratado").textContent = moeda.format(soma("valor_contratado"));
+    el("faturado").textContent = moeda.format(soma("valor_faturado"));
+    el("saldo").textContent = moeda.format(soma("saldo_a_faturar"));
+    el("contratos").textContent = soma("quantidade_contratos");
+
+    if(dados.atualizado_em) {
+      const data = new Date(dados.atualizado_em);
+      if(!Number.isNaN(data.getTime())) {
+        el("atualizacao").textContent =
+          "Última atualização: " + data.toLocaleString("pt-BR");
+      }
+    }
+
+    const nomes = new Set();
+    atividades.forEach(a => {
+      if(Array.isArray(a.centros_custo)) {
+        a.centros_custo.forEach(c => nomes.add(c));
+      }
+    });
+    if(Array.isArray(dados.centros_custo)) {
+      dados.centros_custo.forEach(c => {
+        if(c.nome) nomes.add(c.nome);
+      });
+    }
+
+    [...nomes].sort((a,b) => a.localeCompare(b,"pt-BR"))
+      .forEach(nome => {
+        const opcao = document.createElement("option");
+        opcao.value = nome;
+        opcao.textContent = nome;
+        el("filtro_centro").appendChild(opcao);
+      });
+
+    renderizar();
+
+  } catch(erro) {
+    console.error(erro);
+    el("lista").replaceChildren(
+      criar("div","empty",
+        "Não foi possível carregar as atividades. Verifique o indicadores.json.")
+    );
+  }
+}
+
+["busca","filtro_centro","filtro_situacao"].forEach(id => {
+  el(id).addEventListener(
+    id === "busca" ? "input" : "change",
+    renderizar
+  );
+});
+
+carregar();
+</script>
+</body>
+</html>
