@@ -427,9 +427,19 @@ Object.entries(barras).forEach(([campo, id]) => {
   }
 });
 
-console.log("Indicadores CADPLAN atualizados:", dados);
+const elementoVencido = document.getElementById("total_vencido");
 
+if (elementoVencido && typeof indicadores.total_vencido === "number") {
+  elementoVencido.style.color =
+    indicadores.total_vencido > 0 ? "#C62828" : "#563938";
+}
+    const elementoPago = document.getElementById("total_pago");
 
+if (elementoPago && typeof indicadores.total_pago === "number") {
+  elementoPago.style.color = "#2E7D32";
+}
+    console.log("Indicadores CADPLAN atualizados:", dados);
+    
   } catch (erro) {
     console.error("Erro na atualização do painel:", erro);
   }
