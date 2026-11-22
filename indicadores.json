@@ -1,12 +1,12 @@
 {
   "instituicao": "Santuário São Judas Tadeu",
   "cidade": "Sete Lagoas/MG",
-  "atualizado_em": "2026-11-22T13:54:12",
+  "atualizado_em": "2026-11-22T13:54:45",
   "indicadores": {
-    "total_contratado": 5042400,
+    "total_contratado": 292400,
     "total_faturado": 17090,
-    "saldo_a_faturar": 5025310,
-    "percentual_faturado": 0.0033892590829763605,
+    "saldo_a_faturar": 275310,
+    "percentual_faturado": 0.05844733242134063,
     "total_pago": 12090,
     "saldo_a_pagar": 5000,
     "total_a_vencer": 1500,
