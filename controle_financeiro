@@ -1,0 +1,377 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#563938">
+<title>CADPLAN | Controle Financeiro</title>
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f7f5f3;color:#333}
+header{background:#563938;color:#fff;text-align:center;padding:35px 20px}
+header h1{margin:0 0 8px;font-size:32px;letter-spacing:2px}
+header .subtitle{color:#ffcb94;font-size:13px;letter-spacing:1px}
+header h2{font-size:19px;margin:20px 0 5px}
+header small{opacity:.85}
+main{max-width:1100px;margin:30px auto;padding:0 18px}
+.back{display:inline-block;color:#765454;text-decoration:none;font-weight:bold;margin-bottom:25px}
+h2{color:#563938}
+.section-title{font-size:23px;margin:0 0 8px}
+.description{font-size:14px;color:#777;line-height:1.6}
+.update{font-size:12px;color:#777;margin:15px 0 25px}
+.group-title{font-size:19px;margin:30px 0 16px;padding-bottom:10px;border-bottom:2px solid #8b5e5a}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+.card,.filters,.contract{background:#fff;border:1px solid #e7dedb;border-radius:12px;box-shadow:0 3px 12px #0000000a}
+.card{padding:22px}
+.label{color:#765454;font-size:14px;margin-bottom:10px}
+.value{font-size:25px;font-weight:bold;color:#563938;overflow-wrap:anywhere}
+.filters{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px;padding:18px;margin-bottom:18px}
+.filters input,.filters select{width:100%;min-width:0;padding:12px;border:1px solid #ddd2cd;border-radius:8px;background:#fff;color:#333;font-size:14px}
+.contract{padding:22px;margin-bottom:16px}
+.contract-head{display:flex;align-items:flex-start;justify-content:space-between;gap:15px}
+.process{font-size:12px;color:#888;margin-bottom:8px}
+.company{font-size:18px;font-weight:bold;color:#563938;line-height:1.4}
+.service{font-size:14px;color:#555;margin:10px 0;line-height:1.5}
+.tag{display:inline-block;background:#f0e9e6;color:#765454;border-radius:20px;padding:7px 11px;font-size:12px}
+.meta{font-size:13px;color:#777;line-height:1.6;margin:12px 0 18px}
+.values{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.detail{background:#faf8f7;padding:14px;border-radius:8px;min-width:0}
+.detail span{display:block;font-size:12px;color:#777;margin-bottom:8px}
+.detail strong{font-size:16px;color:#563938;overflow-wrap:anywhere}
+.progress-title{display:flex;justify-content:space-between;gap:12px;font-size:13px;color:#765454;margin:18px 0 8px}
+.progress-bg{height:12px;border-radius:20px;background:#eee7e3;overflow:hidden}
+.progress-fill{height:100%;background:#765454;border-radius:20px}
+.empty{padding:25px;background:#fff;border:1px solid #e7dedb;border-radius:12px;text-align:center;color:#777;line-height:1.6}
+.note{font-size:12px;color:#777;line-height:1.6;margin-top:20px}
+footer{text-align:center;color:#777;font-size:12px;padding:30px 15px}
+@media(max-width:750px){
+.cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+.filters{grid-template-columns:1fr}
+.values{grid-template-columns:repeat(2,minmax(0,1fr))}
+.value{font-size:22px}
+}
+@media(max-width:450px){
+.cards,.values{grid-template-columns:1fr}
+.contract-head{flex-wrap:wrap}
+}
+</style>
+</head>
+
+<body>
+<header>
+<h1>CADPLAN</h1>
+<div class="subtitle">CENTRAL DE GESTÃO DE OBRAS</div>
+<h2>Santuário São Judas Tadeu</h2>
+<small>Sete Lagoas – Minas Gerais</small>
+</header>
+
+<main>
+<a class="back" href="index.html">← Voltar ao Menu Principal</a>
+
+<h2 class="section-title">Controle Financeiro</h2>
+<p class="description">
+Acompanhamento dos contratos, faturamentos, pagamentos e saldos financeiros
+das obras e serviços do Santuário São Judas Tadeu.
+</p>
+<p class="update" id="atualizacao">Última atualização: —</p>
+
+<h2 class="group-title">Resumo Financeiro</h2>
+
+<div class="cards">
+<div class="card">
+<div class="label">Total Contratado</div>
+<div class="value" id="total_contratado">—</div>
+</div>
+<div class="card">
+<div class="label">Total Faturado</div>
+<div class="value" id="total_faturado">—</div>
+</div>
+<div class="card">
+<div class="label">Total Pago</div>
+<div class="value" id="total_pago">—</div>
+</div>
+<div class="card">
+<div class="label">Saldo a Faturar</div>
+<div class="value" id="saldo_faturar">—</div>
+</div>
+<div class="card">
+<div class="label">Saldo a Pagar</div>
+<div class="value" id="saldo_pagar">—</div>
+</div>
+<div class="card">
+<div class="label">Contratos Cadastrados</div>
+<div class="value" id="total_contratos">—</div>
+</div>
+</div>
+
+<h2 class="group-title">Consulta de Contratos</h2>
+
+<div class="filters">
+<input type="search" id="busca"
+placeholder="Pesquisar processo, fornecedor ou serviço..."
+aria-label="Pesquisar contratos">
+
+<select id="filtro_centro" aria-label="Filtrar centro de custo">
+<option value="">Todos os centros de custo</option>
+</select>
+
+<select id="filtro_atividade" aria-label="Filtrar atividade">
+<option value="">Todas as atividades</option>
+</select>
+</div>
+
+<p class="description" id="contador"></p>
+<div id="lista">
+<div class="empty">Carregando contratos...</div>
+</div>
+
+<p class="note">
+Os valores são apresentados de forma consolidada por contrato.
+O saldo a faturar corresponde ao valor contratado ainda não faturado.
+O saldo a pagar corresponde ao valor faturado ainda não registrado como pago.
+Os dados refletem a última sincronização da planilha de gestão.
+</p>
+</main>
+
+<footer>
+Desenvolvido por CADPLAN | Gerenciamento e Construções
+</footer>
+
+<script>
+const moeda = new Intl.NumberFormat("pt-BR",{
+  style:"currency",
+  currency:"BRL"
+});
+
+const el = id => document.getElementById(id);
+
+const num = valor =>
+  typeof valor === "number" && Number.isFinite(valor)
+    ? valor : 0;
+
+let contratos = [];
+
+function elemento(tag,classe,texto){
+  const item = document.createElement(tag);
+  if(classe) item.className = classe;
+  if(texto !== undefined) item.textContent = texto;
+  return item;
+}
+
+function detalhe(container,titulo,valor){
+  const caixa = elemento("div","detail");
+  caixa.append(
+    elemento("span","",titulo),
+    elemento("strong","",valor)
+  );
+  container.appendChild(caixa);
+}
+
+function preencherFiltro(id,valores){
+  const filtro = el(id);
+
+  [...new Set(valores.filter(Boolean))]
+    .sort((a,b)=>a.localeCompare(b,"pt-BR"))
+    .forEach(valor=>{
+      const opcao = document.createElement("option");
+      opcao.value = valor;
+      opcao.textContent = valor;
+      filtro.appendChild(opcao);
+    });
+}
+
+function renderizar(){
+  const busca = el("busca").value.trim()
+    .toLocaleLowerCase("pt-BR");
+
+  const centro = el("filtro_centro").value;
+  const atividade = el("filtro_atividade").value;
+
+  const filtrados = contratos.filter(c=>{
+    const texto = [
+      c.processo,c.empresa,c.servico
+    ].join(" ").toLocaleLowerCase("pt-BR");
+
+    return texto.includes(busca)
+      && (!centro || c.centro_custo === centro)
+      && (!atividade || c.atividade === atividade);
+  });
+
+  el("contador").textContent =
+    `${filtrados.length} contrato(s) encontrado(s).`;
+
+  const lista = el("lista");
+  lista.replaceChildren();
+
+  if(!filtrados.length){
+    lista.appendChild(
+      elemento("div","empty","Nenhum contrato encontrado.")
+    );
+    return;
+  }
+
+  filtrados.forEach(c=>{
+    const contratado = num(c.valor_contratado);
+    const faturado = num(c.valor_faturado);
+    const pago = num(c.valor_pago);
+    const saldoFaturar = num(c.saldo_a_faturar);
+    const saldoPagar = num(c.saldo_a_pagar);
+
+    const percentual = contratado > 0
+      ? faturado / contratado * 100 : 0;
+
+    const largura = Math.max(0,Math.min(100,percentual));
+
+    const artigo = elemento("article","contract");
+
+    const cabecalho = elemento("div","contract-head");
+    const identificacao = elemento("div","");
+
+    identificacao.append(
+      elemento("div","process",c.processo || "Sem processo"),
+      elemento("div","company",c.empresa || "Fornecedor não informado")
+    );
+
+    const etiqueta = elemento(
+      "span","tag",c.atividade || "Sem atividade"
+    );
+
+    cabecalho.append(identificacao,etiqueta);
+
+    const servico = elemento(
+      "div","service",c.servico || "Serviço não informado"
+    );
+
+    const centro = elemento(
+      "div","meta",
+      "Centro de custo: " + (c.centro_custo || "Não informado")
+    );
+
+    const valores = elemento("div","values");
+
+    detalhe(valores,"Valor contratado",moeda.format(contratado));
+    detalhe(valores,"Valor faturado",moeda.format(faturado));
+    detalhe(valores,"Valor pago",moeda.format(pago));
+    detalhe(valores,"Saldo a faturar",moeda.format(saldoFaturar));
+    detalhe(valores,"Saldo a pagar",moeda.format(saldoPagar));
+
+    const progresso = elemento("div","progress-title");
+
+    progresso.append(
+      elemento("span","","Percentual faturado"),
+      elemento(
+        "strong","",
+        percentual.toLocaleString("pt-BR",{
+          minimumFractionDigits:1,
+          maximumFractionDigits:1
+        }) + "%"
+      )
+    );
+
+    const fundo = elemento("div","progress-bg");
+    const barra = elemento("div","progress-fill");
+    barra.style.width = largura + "%";
+    fundo.appendChild(barra);
+
+    artigo.append(
+      cabecalho,servico,centro,valores,progresso,fundo
+    );
+
+    lista.appendChild(artigo);
+  });
+}
+
+async function carregar(){
+  try{
+    const resposta = await fetch(
+      "indicadores.json?t=" + Date.now(),
+      {cache:"no-store"}
+    );
+
+    if(!resposta.ok){
+      throw new Error("Não foi possível carregar o JSON.");
+    }
+
+    const dados = await resposta.json();
+
+    if(!Array.isArray(dados.controle_financeiro)){
+      throw new Error("Controle financeiro não encontrado.");
+    }
+
+    contratos = dados.controle_financeiro;
+    const indicadores = dados.indicadores || {};
+
+    const soma = campo => contratos.reduce(
+      (total,c)=>total + num(c[campo]),0
+    );
+
+    const indicador = (chave,campo) =>
+      typeof indicadores[chave] === "number"
+        ? indicadores[chave]
+        : soma(campo);
+
+    el("total_contratado").textContent = moeda.format(
+      indicador("total_contratado","valor_contratado")
+    );
+
+    el("total_faturado").textContent = moeda.format(
+      indicador("total_faturado","valor_faturado")
+    );
+
+    el("total_pago").textContent = moeda.format(
+      indicador("total_pago","valor_pago")
+    );
+
+    el("saldo_faturar").textContent = moeda.format(
+      indicador("saldo_a_faturar","saldo_a_faturar")
+    );
+
+    el("saldo_pagar").textContent = moeda.format(
+      indicador("saldo_a_pagar","saldo_a_pagar")
+    );
+
+    el("total_contratos").textContent = contratos.length;
+
+    if(dados.atualizado_em){
+      const data = new Date(dados.atualizado_em);
+
+      if(!Number.isNaN(data.getTime())){
+        el("atualizacao").textContent =
+          "Última atualização: " + data.toLocaleString("pt-BR");
+      }
+    }
+
+    preencherFiltro(
+      "filtro_centro",
+      contratos.map(c=>c.centro_custo)
+    );
+
+    preencherFiltro(
+      "filtro_atividade",
+      contratos.map(c=>c.atividade)
+    );
+
+    renderizar();
+
+  }catch(erro){
+    console.error(erro);
+
+    el("lista").replaceChildren(
+      elemento(
+        "div","empty",
+        "Não foi possível carregar o controle financeiro. Verifique o arquivo indicadores.json."
+      )
+    );
+  }
+}
+
+el("busca").addEventListener("input",renderizar);
+el("filtro_centro").addEventListener("change",renderizar);
+el("filtro_atividade").addEventListener("change",renderizar);
+
+carregar();
+</script>
+</body>
+</html>
