@@ -8,586 +8,686 @@
 <title>CADPLAN | Centros de Custo</title>
 
 <style>
-* { box-sizing: border-box; }
+* {
+    box-sizing: border-box;
+}
 
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f7f5f3;
-  color: #333;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: #333;
+    background-color: #f7f5f3;
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,.70),
+            rgba(255,255,255,.78)
+        ),
+        url("fundo-obras.png");
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    min-height: 100vh;
 }
+
+/* CABEÇALHO */
 
 header {
-  background: #563938;
-  color: white;
-  text-align: center;
-  padding: 32px 15px;
+    text-align: center;
+    padding: 30px 18px 25px;
+    color: #563938;
 }
 
-header h1 {
-  margin: 0 0 8px;
-  font-size: 32px;
-  letter-spacing: 2px;
+.logo {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    max-height: 170px;
+    object-fit: contain;
+    margin: 0 auto 18px;
 }
 
 header p {
-  color: #ffcb94;
-  margin: 0;
-  font-size: 13px;
+    margin: 0;
+    color: #765454;
+    font-size: 13px;
+    letter-spacing: 1px;
 }
 
 header h2 {
-  margin: 20px 0 5px;
-  font-size: 19px;
+    font-size: 20px;
+    margin: 12px 0 5px;
 }
 
-header small { opacity: .85; }
+header small {
+    font-size: 14px;
+    color: #765454;
+}
+
+/* CONTEÚDO */
 
 main {
-  max-width: 1000px;
-  margin: 30px auto;
-  padding: 0 18px;
+    max-width: 1000px;
+    margin: 10px auto 30px;
+    padding: 0 18px;
 }
 
 .back {
-  display: inline-block;
-  color: #765454;
-  text-decoration: none;
-  font-weight: bold;
-  margin-bottom: 25px;
+    display: inline-block;
+    color: #765454;
+    text-decoration: none;
+    font-weight: bold;
+    margin-bottom: 25px;
 }
 
-.back:hover { text-decoration: underline; }
+.back:hover {
+    text-decoration: underline;
+}
 
 .section-title {
-  color: #563938;
-  font-size: 23px;
-  margin-bottom: 8px;
+    color: #563938;
+    font-size: 23px;
+    margin: 0 0 8px;
 }
 
 .subtitle {
-  color: #777;
-  margin-bottom: 15px;
-  line-height: 1.5;
+    color: #594b48;
+    margin: 0 0 15px;
+    line-height: 1.5;
+    font-size: 14px;
 }
 
 .update {
-  color: #777;
-  font-size: 12px;
-  margin-bottom: 25px;
+    color: #765454;
+    font-size: 12px;
+    margin-bottom: 25px;
 }
 
 .group-title {
-  color: #563938;
-  font-size: 19px;
-  font-weight: 700;
-  margin-top: 30px;
-  margin-bottom: 16px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid #8b5e5a;
+    color: #563938;
+    font-size: 19px;
+    font-weight: 700;
+    margin: 30px 0 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #8b5e5a;
 }
 
+/* RESUMO GERAL */
+
 .cards {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
 }
 
 .card {
-  background: white;
-  border: 1px solid #e7dedb;
-  border-radius: 12px;
-  padding: 22px;
-  box-shadow: 0 3px 12px #0000000a;
+    background: rgba(255,255,255,.94);
+    border: 1px solid #e7dedb;
+    border-radius: 12px;
+    padding: 22px;
+    box-shadow: 0 3px 12px #0000000a;
 }
 
 .label {
-  color: #765454;
-  font-size: 14px;
-  margin-bottom: 10px;
+    color: #765454;
+    font-size: 14px;
+    margin-bottom: 10px;
 }
 
 .value {
-  font-size: 27px;
-  font-weight: bold;
-  color: #563938;
+    font-size: 27px;
+    font-weight: bold;
+    color: #563938;
+    overflow-wrap: anywhere;
 }
 
+/* DETALHAMENTO DOS CENTROS */
+
 .center-card {
-  background: white;
-  border: 1px solid #e7dedb;
-  border-radius: 12px;
-  padding: 24px;
-  margin-bottom: 16px;
-  box-shadow: 0 3px 12px #0000000a;
+    background: rgba(255,255,255,.94);
+    border: 1px solid #e7dedb;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 16px;
+    box-shadow: 0 3px 12px #0000000a;
 }
 
 .center-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
 }
 
 .center-name {
-  color: #563938;
-  font-size: 17px;
-  font-weight: bold;
-  line-height: 1.4;
+    color: #563938;
+    font-size: 17px;
+    font-weight: bold;
+    line-height: 1.4;
 }
 
 .center-code {
-  display: block;
-  color: #888;
-  font-size: 12px;
-  margin-bottom: 5px;
-  font-weight: normal;
+    display: block;
+    color: #888;
+    font-size: 12px;
+    margin-bottom: 5px;
+    font-weight: normal;
 }
 
 .status {
-  display: inline-block;
-  padding: 6px 10px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: bold;
-  white-space: nowrap;
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+    white-space: nowrap;
 }
 
 .status.active {
-  background: #e7f2e8;
-  color: #2e7d32;
+    background: #e7f2e8;
+    color: #2e7d32;
 }
 
 .status.inactive {
-  background: #f1eeee;
-  color: #777;
+    background: #f1eeee;
+    color: #777;
 }
 
 .center-values {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
 }
 
 .center-value {
-  background: #faf8f7;
-  border-radius: 8px;
-  padding: 13px;
+    background: #faf8f7;
+    border-radius: 8px;
+    padding: 13px;
 }
 
 .center-value span {
-  display: block;
-  color: #777;
-  font-size: 12px;
-  margin-bottom: 7px;
+    display: block;
+    color: #777;
+    font-size: 12px;
+    margin-bottom: 7px;
 }
 
 .center-value strong {
-  color: #563938;
-  font-size: 16px;
-  word-break: break-word;
+    color: #563938;
+    font-size: 16px;
+    overflow-wrap: anywhere;
 }
 
+/* BARRAS DE PROGRESSO */
+
 .progress-title {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  margin: 20px 0 8px;
-  color: #765454;
-  font-size: 13px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 20px 0 8px;
+    color: #765454;
+    font-size: 13px;
 }
 
 .progress-bg {
-  width: 100%;
-  height: 13px;
-  background: #eee7e3;
-  border-radius: 20px;
-  overflow: hidden;
+    width: 100%;
+    height: 13px;
+    background: #eee7e3;
+    border-radius: 20px;
+    overflow: hidden;
 }
 
 .progress-fill {
-  height: 100%;
-  background: #765454;
-  border-radius: 20px;
-  transition: width .5s ease;
+    height: 100%;
+    width: 0%;
+    background: #765454;
+    border-radius: 20px;
+    transition: width .5s ease;
 }
 
 .card-note {
-  color: #777;
-  font-size: 12px;
-  line-height: 1.5;
-  margin-top: 15px;
+    color: #777;
+    font-size: 12px;
+    line-height: 1.5;
+    margin-top: 15px;
 }
 
+/* MENSAGENS */
+
 .empty {
-  background: white;
-  border: 1px solid #e7dedb;
-  border-radius: 12px;
-  padding: 25px;
-  color: #777;
-  text-align: center;
+    background: rgba(255,255,255,.94);
+    border: 1px solid #e7dedb;
+    border-radius: 12px;
+    padding: 25px;
+    color: #777;
+    text-align: center;
 }
 
 .error {
-  background: #fff0ed;
-  border: 1px solid #e8c5bd;
-  color: #a13b2b;
-  border-radius: 10px;
-  padding: 18px;
-  line-height: 1.5;
+    background: #fff0ed;
+    border: 1px solid #e8c5bd;
+    color: #a13b2b;
+    border-radius: 10px;
+    padding: 18px;
+    line-height: 1.5;
 }
+
+/* RODAPÉ */
 
 footer {
-  text-align: center;
-  padding: 30px 15px;
-  color: #777;
-  font-size: 12px;
+    text-align: center;
+    padding: 30px 15px;
+    color: #563938;
+    font-size: 12px;
 }
 
+/* CELULAR */
+
 @media (max-width: 600px) {
-  .cards { grid-template-columns: 1fr; }
+    body {
+        background-attachment: scroll;
+    }
 
-  .center-values {
-    grid-template-columns: 1fr;
-  }
+    .logo {
+        max-width: 260px;
+    }
 
-  .center-header {
-    align-items: flex-start;
-  }
+    .cards {
+        grid-template-columns: 1fr;
+    }
 
-  .center-value strong {
-    font-size: 18px;
-  }
+    .center-values {
+        grid-template-columns: 1fr;
+    }
+
+    .center-header {
+        align-items: flex-start;
+    }
+
+    .center-value strong {
+        font-size: 18px;
+    }
 }
 </style>
 </head>
 
 <body>
 
+<!-- CABEÇALHO -->
+
 <header>
-  <h1>CADPLAN</h1>
-  <p>CENTRAL DE GESTÃO DE OBRAS</p>
-  <h2>Santuário São Judas Tadeu</h2>
-  <small>Sete Lagoas – Minas Gerais</small>
+
+    <img
+        class="logo"
+        src="Marca%20com%20slogan%20sem%20fundo.png"
+        alt="CADPLAN - Sua obra, nosso desafio"
+    >
+
+    <p>CENTRAL DE GESTÃO DE OBRAS</p>
+
+    <h2>Santuário São Judas Tadeu</h2>
+
+    <small>Diocese de Sete Lagoas – MG</small>
+
 </header>
 
 <main>
 
-<a class="back" href="index.html">
-  ← Voltar ao Menu Principal
-</a>
+    <a class="back" href="index.html">
+        ← Voltar ao Menu Principal
+    </a>
 
-<h2 class="section-title">Centros de Custo</h2>
+    <h1 class="section-title">Centros de Custo</h1>
 
-<p class="subtitle">
-  Acompanhamento dos recursos financeiros e dos contratos
-  vinculados a cada centro de custo.
-</p>
+    <p class="subtitle">
+        Acompanhamento dos recursos financeiros e dos
+        contratos vinculados a cada centro de custo.
+    </p>
 
-<p class="update" id="ultima_atualizacao">
-  Última atualização: —
-</p>
+    <p class="update" id="ultima_atualizacao">
+        Última atualização: —
+    </p>
 
-<h2 class="group-title">Resumo Geral</h2>
+    <!-- RESUMO GERAL -->
 
-<div class="cards">
+    <h2 class="group-title">Resumo Geral</h2>
 
-  <div class="card">
-    <div class="label">Centros Cadastrados</div>
-    <div class="value" id="total_centros">—</div>
-  </div>
+    <div class="cards">
 
-  <div class="card">
-    <div class="label">Centros com Contratos</div>
-    <div class="value" id="centros_ativos">—</div>
-  </div>
+        <div class="card">
+            <div class="label">Centros Cadastrados</div>
+            <div class="value" id="total_centros">—</div>
+        </div>
 
-  <div class="card">
-    <div class="label">Valor Contratado</div>
-    <div class="value" id="total_contratado">—</div>
-  </div>
+        <div class="card">
+            <div class="label">Centros com Contratos</div>
+            <div class="value" id="centros_ativos">—</div>
+        </div>
 
-  <div class="card">
-    <div class="label">Valor Faturado</div>
-    <div class="value" id="total_faturado">—</div>
-  </div>
+        <div class="card">
+            <div class="label">Contratos Vinculados</div>
+            <div class="value" id="total_contratos">—</div>
+        </div>
 
-  <div class="card">
-    <div class="label">Saldo a Faturar</div>
-    <div class="value" id="saldo_a_faturar">—</div>
-  </div>
+    </div>
 
-  <div class="card">
-    <div class="label">Contratos Vinculados</div>
-    <div class="value" id="total_contratos">—</div>
-  </div>
+    <!-- DETALHAMENTO -->
 
-</div>
+    <h2 class="group-title">
+        Detalhamento por Centro de Custo
+    </h2>
 
-<h2 class="group-title">Detalhamento por Centro de Custo</h2>
-
-<div id="lista_centros">
-  <div class="empty">Carregando centros de custo...</div>
-</div>
+    <div id="lista_centros">
+        <div class="empty">
+            Carregando centros de custo...
+        </div>
+    </div>
 
 </main>
 
 <footer>
-  Desenvolvido por CADPLAN | Gerenciamento e Construções
+    Desenvolvido por CADPLAN | Gerenciamento e Construções
 </footer>
 
 <script>
 
 async function carregarCentros() {
 
-  const lista = document.getElementById("lista_centros");
+    const lista = document.getElementById("lista_centros");
 
-  try {
+    try {
 
-    const resposta = await fetch(
-      "indicadores.json?t=" + Date.now(),
-      { cache: "no-store" }
-    );
+        // CARREGAMENTO DOS DADOS
 
-    if (!resposta.ok) {
-      throw new Error("Não foi possível carregar os dados.");
-    }
+        const resposta = await fetch(
+            "indicadores.json?t=" + Date.now(),
+            { cache: "no-store" }
+        );
 
-    const dados = await resposta.json();
+        if (!resposta.ok) {
+            throw new Error(
+                "Não foi possível carregar os dados."
+            );
+        }
 
-    const centros = dados.centros_custo;
+        const dados = await resposta.json();
 
-    if (!Array.isArray(centros)) {
-      throw new Error("Lista de centros de custo não encontrada.");
-    }
+        const centros = dados.centros_custo;
 
-    const moeda = new Intl.NumberFormat("pt-BR", {
-      style: "currency",
-      currency: "BRL"
-    });
+        if (!Array.isArray(centros)) {
+            throw new Error(
+                "Lista de centros de custo não encontrada."
+            );
+        }
 
-    const numero = valor =>
-      typeof valor === "number" && Number.isFinite(valor)
-        ? valor
-        : 0;
+        // FORMATAÇÃO
 
-    // DATA DA ATUALIZACAO
+        const moeda = new Intl.NumberFormat("pt-BR", {
+            style: "currency",
+            currency: "BRL"
+        });
 
-    if (dados.atualizado_em) {
+        const numero = valor =>
+            typeof valor === "number" &&
+            Number.isFinite(valor)
+                ? valor
+                : 0;
 
-      const data = new Date(dados.atualizado_em);
+        // DATA DA ATUALIZAÇÃO
 
-      if (!Number.isNaN(data.getTime())) {
+        if (dados.atualizado_em) {
+
+            const data = new Date(dados.atualizado_em);
+
+            if (!Number.isNaN(data.getTime())) {
+
+                document.getElementById(
+                    "ultima_atualizacao"
+                ).textContent =
+                    "Última atualização: " +
+                    data.toLocaleString("pt-BR", {
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        hour12: false
+                    });
+            }
+        }
+
+        // CÁLCULO DOS TOTAIS
+
+        const totalContratos = centros.reduce(
+            (soma, centro) =>
+                soma + numero(centro.quantidade_contratos),
+            0
+        );
+
+        const centrosAtivos = centros.filter(
+            centro => centro.ativo === true
+        ).length;
+
+        // ATUALIZAÇÃO DO RESUMO GERAL
 
         document.getElementById(
-          "ultima_atualizacao"
+            "total_centros"
         ).textContent =
-          "Última atualização: " +
-          data.toLocaleString("pt-BR", {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-            hour: "2-digit",
-            minute: "2-digit",
-            hour12: false
-          });
+            centros.length.toLocaleString("pt-BR");
 
-      }
+        document.getElementById(
+            "centros_ativos"
+        ).textContent =
+            centrosAtivos.toLocaleString("pt-BR");
+
+        document.getElementById(
+            "total_contratos"
+        ).textContent =
+            totalContratos.toLocaleString("pt-BR");
+
+        // LISTAGEM DOS CENTROS
+
+        lista.innerHTML = "";
+
+        if (centros.length === 0) {
+
+            lista.innerHTML =
+                '<div class="empty">' +
+                'Nenhum centro de custo cadastrado.' +
+                '</div>';
+
+            return;
+        }
+
+        centros.forEach(centro => {
+
+            const contratado = numero(
+                centro.valor_contratado
+            );
+
+            const faturado = numero(
+                centro.valor_faturado
+            );
+
+            const saldo = numero(
+                centro.saldo_a_faturar
+            );
+
+            const quantidade = numero(
+                centro.quantidade_contratos
+            );
+
+            const percentual = contratado > 0
+                ? Math.max(
+                    0,
+                    Math.min(
+                        100,
+                        faturado / contratado * 100
+                    )
+                )
+                : 0;
+
+            const ativo = centro.ativo === true;
+
+            // CARTÃO DO CENTRO
+
+            const artigo = document.createElement("article");
+            artigo.className = "center-card";
+
+            // CABEÇALHO DO CENTRO
+
+            const cabecalho = document.createElement("div");
+            cabecalho.className = "center-header";
+
+            const identificacao = document.createElement("div");
+
+            const codigo = document.createElement("span");
+            codigo.className = "center-code";
+            codigo.textContent =
+                centro.codigo || "Sem código";
+
+            const nome = document.createElement("div");
+            nome.className = "center-name";
+            nome.textContent =
+                centro.nome || "Centro sem identificação";
+
+            identificacao.append(codigo, nome);
+
+            const status = document.createElement("span");
+            status.className = ativo
+                ? "status active"
+                : "status inactive";
+
+            status.textContent = ativo
+                ? "Com contratos"
+                : "Sem contratos";
+
+            cabecalho.append(identificacao, status);
+
+            // VALORES FINANCEIROS DO CENTRO
+
+            const valores = document.createElement("div");
+            valores.className = "center-values";
+
+            const criarValor = (titulo, valor) => {
+
+                const caixa = document.createElement("div");
+                caixa.className = "center-value";
+
+                const legenda = document.createElement("span");
+                legenda.textContent = titulo;
+
+                const numeroValor = document.createElement("strong");
+                numeroValor.textContent = valor;
+
+                caixa.append(legenda, numeroValor);
+
+                return caixa;
+            };
+
+            valores.append(
+                criarValor(
+                    "Valor contratado",
+                    moeda.format(contratado)
+                ),
+                criarValor(
+                    "Valor faturado",
+                    moeda.format(faturado)
+                ),
+                criarValor(
+                    "Saldo a faturar",
+                    moeda.format(saldo)
+                )
+            );
+
+            // PROGRESSO DO FATURAMENTO
+
+            const tituloProgresso =
+                document.createElement("div");
+
+            tituloProgresso.className = "progress-title";
+
+            const legendaProgresso =
+                document.createElement("span");
+
+            legendaProgresso.textContent =
+                "Percentual faturado";
+
+            const percentualTexto =
+                document.createElement("strong");
+
+            percentualTexto.textContent =
+                percentual.toLocaleString("pt-BR", {
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1
+                }) + "%";
+
+            tituloProgresso.append(
+                legendaProgresso,
+                percentualTexto
+            );
+
+            const fundo = document.createElement("div");
+            fundo.className = "progress-bg";
+
+            const preenchimento =
+                document.createElement("div");
+
+            preenchimento.className = "progress-fill";
+            preenchimento.style.width = percentual + "%";
+
+            fundo.appendChild(preenchimento);
+
+            // QUANTIDADE DE CONTRATOS
+
+            const observacao = document.createElement("p");
+            observacao.className = "card-note";
+
+            observacao.textContent =
+                quantidade.toLocaleString("pt-BR") +
+                (quantidade === 1
+                    ? " contrato vinculado."
+                    : " contratos vinculados.");
+
+            // MONTAGEM DO CARTÃO
+
+            artigo.append(
+                cabecalho,
+                valores,
+                tituloProgresso,
+                fundo,
+                observacao
+            );
+
+            lista.appendChild(artigo);
+
+        });
+
+        console.log(
+            "Centros de custo CADPLAN carregados:",
+            centros
+        );
+
+    } catch (erro) {
+
+        console.error(
+            "Erro ao carregar centros de custo:",
+            erro
+        );
+
+        lista.innerHTML = "";
+
+        const mensagem = document.createElement("div");
+        mensagem.className = "error";
+
+        mensagem.textContent =
+            "Não foi possível carregar os centros de custo. " +
+            "Verifique se o arquivo indicadores.json " +
+            "foi atualizado e publicado.";
+
+        lista.appendChild(mensagem);
     }
-
-    // CALCULO DOS TOTAIS
-
-    const totalContratado = centros.reduce(
-      (soma, centro) =>
-        soma + numero(centro.valor_contratado),
-      0
-    );
-
-    const totalFaturado = centros.reduce(
-      (soma, centro) =>
-        soma + numero(centro.valor_faturado),
-      0
-    );
-
-    const saldoTotal = centros.reduce(
-      (soma, centro) =>
-        soma + numero(centro.saldo_a_faturar),
-      0
-    );
-
-    const totalContratos = centros.reduce(
-      (soma, centro) =>
-        soma + numero(centro.quantidade_contratos),
-      0
-    );
-
-    const centrosAtivos = centros.filter(
-      centro => centro.ativo === true
-    ).length;
-
-    // ATUALIZACAO DOS INDICADORES
-
-    document.getElementById("total_centros").textContent =
-      centros.length.toLocaleString("pt-BR");
-
-    document.getElementById("centros_ativos").textContent =
-      centrosAtivos.toLocaleString("pt-BR");
-
-    document.getElementById("total_contratado").textContent =
-      moeda.format(totalContratado);
-
-    document.getElementById("total_faturado").textContent =
-      moeda.format(totalFaturado);
-
-    document.getElementById("saldo_a_faturar").textContent =
-      moeda.format(saldoTotal);
-
-    document.getElementById("total_contratos").textContent =
-      totalContratos.toLocaleString("pt-BR");
-
-    // LISTAGEM DOS CENTROS
-
-    lista.innerHTML = "";
-
-    if (centros.length === 0) {
-
-      lista.innerHTML =
-        '<div class="empty">Nenhum centro de custo cadastrado.</div>';
-
-      return;
-    }
-
-    centros.forEach(centro => {
-
-      const contratado = numero(centro.valor_contratado);
-      const faturado = numero(centro.valor_faturado);
-      const saldo = numero(centro.saldo_a_faturar);
-      const quantidade = numero(centro.quantidade_contratos);
-
-      const percentual = contratado > 0
-        ? Math.max(0, Math.min(100, faturado / contratado * 100))
-        : 0;
-
-      const ativo = centro.ativo === true;
-
-      const artigo = document.createElement("article");
-      artigo.className = "center-card";
-
-      const cabecalho = document.createElement("div");
-      cabecalho.className = "center-header";
-
-      const identificacao = document.createElement("div");
-
-      const codigo = document.createElement("span");
-      codigo.className = "center-code";
-      codigo.textContent = centro.codigo || "Sem código";
-
-      const nome = document.createElement("div");
-      nome.className = "center-name";
-      nome.textContent = centro.nome || "Centro sem identificação";
-
-      identificacao.append(codigo, nome);
-
-      const status = document.createElement("span");
-      status.className = ativo ? "status active" : "status inactive";
-      status.textContent = ativo ? "Com contratos" : "Sem contratos";
-
-      cabecalho.append(identificacao, status);
-
-      const valores = document.createElement("div");
-      valores.className = "center-values";
-
-      const criarValor = (titulo, valor) => {
-
-        const caixa = document.createElement("div");
-        caixa.className = "center-value";
-
-        const legenda = document.createElement("span");
-        legenda.textContent = titulo;
-
-        const numeroValor = document.createElement("strong");
-        numeroValor.textContent = valor;
-
-        caixa.append(legenda, numeroValor);
-
-        return caixa;
-      };
-
-      valores.append(
-        criarValor("Valor contratado", moeda.format(contratado)),
-        criarValor("Valor faturado", moeda.format(faturado)),
-        criarValor("Saldo a faturar", moeda.format(saldo))
-      );
-
-      const tituloProgresso = document.createElement("div");
-      tituloProgresso.className = "progress-title";
-
-      const legendaProgresso = document.createElement("span");
-      legendaProgresso.textContent = "Percentual faturado";
-
-      const percentualTexto = document.createElement("strong");
-      percentualTexto.textContent =
-        percentual.toLocaleString("pt-BR", {
-          minimumFractionDigits: 1,
-          maximumFractionDigits: 1
-        }) + "%";
-
-      tituloProgresso.append(
-        legendaProgresso,
-        percentualTexto
-      );
-
-      const fundo = document.createElement("div");
-      fundo.className = "progress-bg";
-
-      const preenchimento = document.createElement("div");
-      preenchimento.className = "progress-fill";
-      preenchimento.style.width = percentual + "%";
-
-      fundo.appendChild(preenchimento);
-
-      const observacao = document.createElement("p");
-      observacao.className = "card-note";
-      observacao.textContent =
-        quantidade.toLocaleString("pt-BR") +
-        (quantidade === 1
-          ? " contrato vinculado."
-          : " contratos vinculados.");
-
-      artigo.append(
-        cabecalho,
-        valores,
-        tituloProgresso,
-        fundo,
-        observacao
-      );
-
-      lista.appendChild(artigo);
-
-    });
-
-    console.log(
-      "Centros de custo CADPLAN carregados:",
-      centros
-    );
-
-  } catch (erro) {
-
-    console.error("Erro ao carregar centros de custo:", erro);
-
-    lista.innerHTML = "";
-
-    const mensagem = document.createElement("div");
-    mensagem.className = "error";
-    mensagem.textContent =
-      "Não foi possível carregar os centros de custo. " +
-      "Verifique se o arquivo indicadores.json foi atualizado e publicado.";
-
-    lista.appendChild(mensagem);
-
-  }
-
 }
 
 carregarCentros();
