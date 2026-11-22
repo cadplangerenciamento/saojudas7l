@@ -233,6 +233,30 @@
     Gerenciamento e Construções
   </footer>
 
+
+<script>
+async function atualizarIndicadores() {
+  try {
+    const resposta = await fetch(
+      "indicadores.json?t=" + Date.now(),
+      { cache: "no-store" }
+    );
+
+    if (!resposta.ok) {
+      throw new Error("Não foi possível carregar os indicadores.");
+    }
+
+    const dados = await resposta.json();
+
+    console.log("Indicadores CADPLAN carregados:", dados);
+  } catch (erro) {
+    console.error("Erro ao atualizar indicadores:", erro);
+  }
+}
+
+atualizarIndicadores();
+</script>
+
 </body>
 </html>
 
