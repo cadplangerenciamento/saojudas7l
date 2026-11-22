@@ -1,0 +1,224 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#563938">
+  <title>São Judas Tadeu | Gestão de Obras</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f7f5f3;
+      color: #333;
+    }
+
+    header {
+      background: #563938;
+      color: white;
+      text-align: center;
+      padding: 35px 20px;
+    }
+
+    header h1 {
+      margin: 0 0 8px;
+      font-size: 32px;
+      letter-spacing: 2px;
+    }
+
+    header .subtitle {
+      color: #ffcb94;
+      font-size: 13px;
+      letter-spacing: 1px;
+    }
+
+    header .institution {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    header .location {
+      margin-top: 6px;
+      font-size: 13px;
+      opacity: 0.85;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 0 18px;
+    }
+
+    h2 {
+      color: #563938;
+      font-size: 21px;
+      margin: 30px 0 15px;
+    }
+
+    .intro {
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+
+    .menu {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .item {
+      background: white;
+      border: 1px solid #e7dedb;
+      border-radius: 12px;
+      padding: 25px 15px;
+      text-align: center;
+      text-decoration: none;
+      color: #563938;
+      box-shadow: 0 3px 12px #0000000a;
+      transition: transform 0.2s;
+    }
+
+    .item:hover {
+      transform: translateY(-3px);
+      background: #fff7f0;
+    }
+
+    .item .icon {
+      display: block;
+      font-size: 30px;
+      margin-bottom: 12px;
+    }
+
+    .item strong {
+      display: block;
+      font-size: 15px;
+      line-height: 1.4;
+    }
+
+    .item small {
+      display: block;
+      margin-top: 7px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .disabled {
+      opacity: 0.55;
+      cursor: default;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 15px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .back {
+      display: inline-block;
+      margin-top: 25px;
+      color: #765454;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    @media (max-width: 480px) {
+      header h1 { font-size: 28px; }
+      .menu { gap: 10px; }
+      .item { padding: 20px 10px; }
+      .item strong { font-size: 13px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>CADPLAN</h1>
+    <div class="subtitle">
+      CENTRAL DE GESTÃO DE OBRAS
+    </div>
+    <div class="institution">
+      Santuário São Judas Tadeu
+    </div>
+    <div class="location">
+      Sete Lagoas – Minas Gerais
+    </div>
+  </header>
+
+  <main>
+    <p class="intro">
+      Consulte as informações gerenciais,
+      financeiras e operacionais das obras
+      do Santuário São Judas Tadeu.
+    </p>
+
+    <h2>Gestão Gerencial</h2>
+
+    <div class="menu">
+      <a class="item" href="painel-executivo.html">
+        <span class="icon">📊</span>
+        <strong>Painel Executivo</strong>
+      </a>
+
+      <a class="item" href="centros-de-custo.html">
+        <span class="icon">📈</span>
+        <strong>Centros de Custo</strong>
+      </a>
+
+      <a class="item" href="atividades.html">
+        <span class="icon">📋</span>
+        <strong>Atividades</strong>
+      </a>
+
+      <div class="item disabled">
+        <span class="icon">📷</span>
+        <strong>Câmera da Obra</strong>
+        <small>Em breve</small>
+      </div>
+    </div>
+
+    <h2>Gestão Operacional</h2>
+
+    <div class="menu">
+      <a class="item" href="controle-financeiro.html">
+        <span class="icon">💰</span>
+        <strong>Controle Financeiro</strong>
+      </a>
+
+      <a class="item" href="notas-fiscais.html">
+        <span class="icon">📄</span>
+        <strong>Notas Fiscais</strong>
+      </a>
+
+      <a class="item" href="programacao-semanal.html">
+        <span class="icon">📅</span>
+        <strong>Programação Semanal</strong>
+      </a>
+
+      <div class="item disabled">
+        <span class="icon">📖</span>
+        <strong>Diário de Obras</strong>
+        <small>Em breve</small>
+      </div>
+    </div>
+
+    <a class="back"
+       href="https://cadplangerenciamento.github.io/">
+      ← Voltar ao portal CADPLAN
+    </a>
+  </main>
+
+  <footer>
+    Desenvolvido por CADPLAN |
+    Gerenciamento e Construções
+    <br>
+    Central de Gestão de Obras – 2026
+  </footer>
+</body>
+</html>
