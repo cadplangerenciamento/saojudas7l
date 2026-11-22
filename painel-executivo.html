@@ -1,1 +1,238 @@
 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#563938">
+
+  <title>CADPLAN | Painel Executivo</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f7f5f3;
+      color: #333;
+    }
+
+    header {
+      background: #563938;
+      color: white;
+      text-align: center;
+      padding: 32px 15px;
+    }
+
+    header h1 {
+      margin: 0 0 8px;
+      font-size: 32px;
+      letter-spacing: 2px;
+    }
+
+    header p {
+      color: #ffcb94;
+      margin: 0;
+      font-size: 13px;
+    }
+
+    header h2 {
+      margin: 20px 0 5px;
+      font-size: 19px;
+    }
+
+    header small { opacity: 0.85; }
+
+    main {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 0 18px;
+    }
+
+    .back {
+      display: inline-block;
+      color: #765454;
+      text-decoration: none;
+      font-weight: bold;
+      margin-bottom: 25px;
+    }
+
+    .section-title {
+      color: #563938;
+      font-size: 23px;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: #777;
+      margin-bottom: 25px;
+      line-height: 1.5;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid #e7dedb;
+      border-radius: 12px;
+      padding: 22px;
+      box-shadow: 0 3px 12px #0000000a;
+    }
+
+    .card .label {
+      color: #765454;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .card .value {
+      font-size: 29px;
+      font-weight: bold;
+      color: #563938;
+    }
+
+    .chart-box {
+      background: white;
+      border: 1px solid #e7dedb;
+      border-radius: 12px;
+      padding: 25px;
+      margin-top: 22px;
+    }
+
+    .chart-box h3 {
+      color: #563938;
+      margin-top: 0;
+    }
+
+    .bar-label {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin: 22px 0 8px;
+      font-size: 14px;
+    }
+
+    .bar-bg {
+      width: 100%;
+      height: 19px;
+      background: #eee7e3;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      background: #765454;
+      border-radius: 20px;
+    }
+
+    .note {
+      color: #777;
+      font-size: 12px;
+      margin-top: 20px;
+      line-height: 1.6;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 15px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    @media (max-width: 600px) {
+      .cards { grid-template-columns: 1fr; }
+      .card .value { font-size: 26px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>CADPLAN</h1>
+    <p>CENTRAL DE GESTÃO DE OBRAS</p>
+    <h2>Santuário São Judas Tadeu</h2>
+    <small>Sete Lagoas – Minas Gerais</small>
+  </header>
+
+  <main>
+    <a class="back" href="index.html">
+      ← Voltar ao Menu Principal
+    </a>
+
+    <h2 class="section-title">Painel Executivo</h2>
+
+    <p class="subtitle">
+      Visão geral dos contratos e da
+      execução financeira das obras.
+    </p>
+
+    <div class="cards">
+
+      <div class="card">
+        <div class="label">Valor Contratado</div>
+        <div class="value">R$ 42.400,00</div>
+      </div>
+
+      <div class="card">
+        <div class="label">Valor Faturado</div>
+        <div class="value">R$ 13.590,00</div>
+      </div>
+
+      <div class="card">
+        <div class="label">Valor Pago</div>
+        <div class="value">R$ 12.090,00</div>
+      </div>
+
+      <div class="card">
+        <div class="label">Valor Pendente de Pagamento</div>
+        <div class="value">R$ 1.500,00</div>
+      </div>
+
+    </div>
+
+    <div class="chart-box">
+      <h3>Acompanhamento Financeiro</h3>
+
+      <div class="bar-label">
+        <span>Faturado / Contratado</span>
+        <strong>32,1%</strong>
+      </div>
+      <div class="bar-bg">
+        <div class="bar-fill" style="width:32.1%">
+        </div>
+      </div>
+
+      <div class="bar-label">
+        <span>Pago / Contratado</span>
+        <strong>28,5%</strong>
+      </div>
+      <div class="bar-bg">
+        <div class="bar-fill" style="width:28.5%">
+        </div>
+      </div>
+
+      <p class="note">
+        Dados demonstrativos referentes ao
+        último levantamento financeiro.
+        Os valores serão atualizados
+        conforme os registros administrativos.
+      </p>
+    </div>
+  </main>
+
+  <footer>
+    Desenvolvido por CADPLAN |
+    Gerenciamento e Construções
+  </footer>
+
+</body>
+</html>
+
